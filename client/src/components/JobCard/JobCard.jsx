@@ -1,8 +1,6 @@
-import React from 'react';
+import styles from '../JobCard/JobCard.module.css';
 
-import styles from '../Login/Login.module.css';
-
-export const Login = () => {
+export const JobCard = () => {
     return (
         <div className={styles.container}>
             <h1 className={styles.title}></h1>
@@ -11,4 +9,4 @@ export const Login = () => {
     );
 }
 
-export default Login;
+export default JobCard;

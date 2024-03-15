@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styles from '../Dashboard/Dashboard.module.css';
 
 export const Dashboard = () => {
