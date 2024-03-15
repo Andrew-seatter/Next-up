@@ -1,22 +1,8 @@
+
 import mockJobs from "../../lib/mock-jobs";
 import { Grid } from "@mui/material";
 import JobCard from "./JobCard";
-/*
-    Array.map is an array method that returns a new array based on an old one.
-    const numbers = [1, 2, 3]
-    const doubles = numbers.map(n => n*2)
-        [2, 4, 6]
 
-    ``  template string
-    ${} template literal
-
-    Bootstrap breakpoints
-        xs
-        sm
-        md
-        lg
-        xl
-*/
 
 export const Dashboard = () => {
   return (
