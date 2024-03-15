@@ -1,17 +1,45 @@
 //  https://mui.com/material-ui/all-components/
-import styles from './Header.module.css';
+import "./Header.css"
 
+import { 
+    AppBar, 
+    Toolbar,
+    IconButton
+} from '@mui/material';
+
+import MenuIcon from '@mui/icons-material/Menu'
+/*
+    sx prop = custom style
+    use valid CSS properties or mui-unique properties
+
+    sx={{
+        mr: 10,
+        pt: 5
+    }}
+
+    sx={{
+        marginRight: "100px",
+        paddingTop: "50px"
+    }}
+*/
 export const Header = () => {
     return (
-        <div className={styles.Header}>
-                <h1 className={styles.title}>
-                    NextUp
-                </h1>
-                <p className={styles.tagline}>
-                    Your Personal Job Application Tracker
-                    </p>
-            </div>
-
+        <AppBar color="secondary">
+            <Toolbar>
+                <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    sx={{ 
+                        mr: 2
+                    }}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <h1>Welcome</h1>
+            </Toolbar>
+        </AppBar>
     );
 }
 

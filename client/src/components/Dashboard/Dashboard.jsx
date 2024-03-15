@@ -1,15 +1,25 @@
-import React from 'react';
 
-import styles from '../Dashboard/Dashboard.module.css';
+import mockJobs from "../../lib/mock-jobs";
+import { Grid } from "@mui/material";
+import JobCard from "./JobCard";
+
 
 export const Dashboard = () => {
-    return (
-        <div className={styles.container}>
-            <h1 className={styles.title}></h1>
-        </div>
-
-    );
-}
-
+  return (
+    <Grid container>
+      <Grid item xs={3}>
+        SIDE-BAR
+      </Grid>
+      <Grid item xs={9}>
+        <Grid container id="job-cards" spacing={2}>
+          {mockJobs.map((job, i) => {
+            const key = `${job.jobTitle}-${i}`;
+            return <JobCard key={key} job={job} />;
+          })}
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+};
 
 export default Dashboard;
