@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styles from '../Register/Register.module.css';
 
 export const Register = () => {

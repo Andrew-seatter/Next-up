@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styles from '../JobCard/JobCard.module.css';
 
 export const JobCard = ({ jobName, company, status, notes}) => {

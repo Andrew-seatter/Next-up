@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styles from '../Footer/Footer.module.css';
 
 export const Footer = () => {
