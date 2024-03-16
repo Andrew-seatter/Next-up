@@ -1,5 +1,11 @@
 @import "../rootVars.css";
 
+.welcome {
+    text-align: center;
+    font-size: 20px;
+    color: var(--text-dark);
+}
+
 .list {
     list-style: none;
     padding: 0;
@@ -7,8 +13,8 @@
 }
 
 .list li {
-    background-color: #5999e7;
-    border: 2px solid #3478bd; 
+    background-color: var(--color-light);
+    border: 2px solid var(--color-dark); 
     border-radius: 5px; 
     margin: 10px; 
     padding: 10px; 
@@ -17,15 +23,15 @@
 }
 
 .list li:hover {
-    background-color: #ab2bda;
-    border: 2px solid #501a63;
-    color: #fff;
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-secondary);
+    color: var(--text-light);
     cursor: pointer;
 }
 
 .link {
     text-decoration: none;
     font-size: 20px;
-    color: #fff;
+    color: var(--text-light);
 }
 
