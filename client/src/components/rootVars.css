@@ -3,6 +3,10 @@
 To use, add: @import "../rootVars.css"; to the top of any css component*/
 
 :root {
-    --text-color: #000;
-    --background-color: #fff;
+    --color-primary: #ab2bda;
+    --color-secondary: #511766;
+    --color-dark: #1c477f;
+    --color-light: #4c94dd;
+    --text-dark: #000;
+    --text-light: #fff;
 }
