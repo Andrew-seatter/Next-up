@@ -4,10 +4,13 @@ import "./Header.css"
 import { 
     AppBar, 
     Toolbar,
-    IconButton
+    IconButton, 
+    Button 
 } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu'
+
+import  { Link } from 'react-router-dom';
 /*
     sx prop = custom style
     use valid CSS properties or mui-unique properties
@@ -37,7 +40,12 @@ export const Header = () => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <h1>Welcome</h1>
+                    <h1>Welcome</h1>
+                    
+                {/* Link back to Dashboard */}
+                <Button color="inherit" component={Link} to="/">
+                    Dashboard
+                </Button>
             </Toolbar>
         </AppBar>
     );
