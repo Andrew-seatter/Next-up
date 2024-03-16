@@ -1,0 +1,5 @@
+/*
+friends needs
+an id of the relationship number
+a user from the user schema
+*/
