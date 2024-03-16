@@ -1,0 +1,8 @@
+/* Add root variables here. 
+
+To use, add: @import "../rootVars.css"; to the top of any css component*/
+
+:root {
+    --text-color: #000;
+    --background-color: #fff;
+}

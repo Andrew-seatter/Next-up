@@ -1,0 +1,31 @@
+@import "../rootVars.css";
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list li {
+    background-color: #5999e7;
+    border: 2px solid #3478bd; 
+    border-radius: 5px; 
+    margin: 10px; 
+    padding: 10px; 
+    text-align: center; 
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.list li:hover {
+    background-color: #ab2bda;
+    border: 2px solid #501a63;
+    color: #fff;
+    cursor: pointer;
+}
+
+.link {
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+}
+

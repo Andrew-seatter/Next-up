@@ -2,13 +2,14 @@
 import mockJobs from "../../lib/mock-jobs";
 import { Grid } from "@mui/material";
 import JobCard from "./JobCard";
+import Sidebar from "../Navigation/Sidebar";
 
 
 export const Dashboard = () => {
   return (
     <Grid container>
       <Grid item xs={3}>
-        SIDE-BAR
+        <Sidebar />
       </Grid>
       <Grid item xs={9}>
         <Grid container id="job-cards" spacing={2}>
