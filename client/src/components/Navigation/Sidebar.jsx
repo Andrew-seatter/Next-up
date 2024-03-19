@@ -16,11 +16,25 @@ export const Sidebar = () => {
                 <ul className={styles.list}>
                     {/* Navigation link to stats page */}
                     <li>
-                        <NavLink to="/stats" className={styles.link}>View my stats</NavLink> 
+                        <NavLink to="/" className={styles.link}>
+                            Return to Dashboard
+                        </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/resources" className={styles.link}>View Resources</NavLink>
+                        <NavLink to="/stats" className={styles.link}>
+                            View my stats
+                        </NavLink> 
                     </li>
+                    <li>
+                        <NavLink to="/resources" className={styles.link}>
+                            View Resources
+                        </NavLink>
+                    </li>
+                    {/* <li> 
+                        <NavLink to="/" className={styles.link}>
+                            View all jobs
+                        </NavLink>
+                    </li> */}
 
                 </ul>
             </div>
