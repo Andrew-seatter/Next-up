@@ -1,5 +1,3 @@
-// https://mui.com/material-ui/
-// npm install @mui/material @emotion/react @emotion/styled react-router-dom
 
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -36,7 +34,10 @@ function App() {
       >
         <Box className="modal-box">
           <EditModal
-            close={()=>{updateStore(setStore, 'editModalIsOpen', false)}}
+            close={()=>{
+              updateStore(setStore, 'editModalIsOpen', false)
+              updateStore(setStore, 'activeJob', null)
+          }}
           />
         </Box>
       </Modal>
