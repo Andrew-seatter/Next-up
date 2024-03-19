@@ -20,7 +20,9 @@ import { Link } from 'react-router-dom'
 export const Dashboard = () => {
   const [store, setStore] = useStore();
 
-  const { data, loading, error } = useQuery(GET_JOBS, { variables: { user_id: '???' }});
+  let userDecoded = auth.getProfile()
+
+  const { data, loading, error } = useQuery(GET_JOBS, { variables: { user_id: userDecoded?.data?._id }});
   if (error) {
     console.log("Error trying to get jobs")
     console.log(error)
@@ -32,6 +34,8 @@ export const Dashboard = () => {
     if (error && MOCK) {
       jobs = mockJobs.slice(0, 8);
     } else {
+      console.log("DATA:", data)
+      // console.log("JOBS:", jobs)
       jobs = data.jobs;
     }
   }
@@ -68,7 +72,6 @@ export const Dashboard = () => {
         </Stack>
         <Stack direction="row" justifyContent="space-between" gap={4}>
           <div className="welcome-banner">
-            {/* <img src="https://picsum.photos/seed/${Math.random()}" alt="" /> */}
             <h1>Welcome Banner</h1>
           </div>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -85,18 +88,24 @@ export const Dashboard = () => {
         </Stack>
         {/* Job Cards */}
         <Grid container id="job-cards" spacing={2} sx={{ pt: 2 }}>
-          {!loading ? (
+          {loading && (
+            <>  {loading ? <img src='spinner' alt="loading" /> : null}</>
+          )}
+
+          {data?.jobs?.length > 0 && (
             jobs.map((job, i) => {
               const key = `${job.jobTitle}-${i}`;
               return <JobCard key={key} job={job} />;
             })
-          ) : (
-            <>  {loading ? <img src='spinner' alt="loading" /> : null}</>
           )}
-          {mockJobs.map((job, i) => {
-            const key = `${job.jobTitle}-${i}`;
-            return <JobCard key={key} job={job} />;
-          })}
+          
+          {data?.jobs?.length === 0 && (
+            <>You have not applied to any jobs. Add a job!</>
+          )}
+
+          {error && (
+            <>{error.message}</>
+          )}
         </Grid>
       </Grid>
     </Grid>

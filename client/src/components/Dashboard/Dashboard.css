@@ -1,9 +1,10 @@
 div .welcome-banner {
-  background-color: white;
+  background-image: url("/welcome-banner.png");
   width: 75%;
   padding-left: 50px;
   border-radius: 15px;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+  background-size: cover;
 }
 
 .calendar {
