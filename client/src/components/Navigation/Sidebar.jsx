@@ -11,6 +11,8 @@ import LaptopChromebookIcon from '@mui/icons-material/LaptopChromebook';
     git push origin feature/jobscards-reconfigured
 */
 
+
+
 export const Sidebar = () => {
     return (
         <div className={styles.container}>

@@ -13,10 +13,18 @@ import { useStore, updateStore } from "../../lib/store.js";
 import { useQuery } from "@apollo/client";
 import { GET_JOBS } from "../../../utils/queries.js";
 
+import auth from "../../../utils/auth.js";
+
+import { Link } from 'react-router-dom'
+
 export const Dashboard = () => {
   const [store, setStore] = useStore();
 
-  const { data, loading, error } = useQuery(GET_JOBS);
+  const { data, loading, error } = useQuery(GET_JOBS, { variables: { user_id: '???' }});
+  if (error) {
+    console.log("Error trying to get jobs")
+    console.log(error)
+  }
 
   let jobs;
   const MOCK = true;
@@ -33,6 +41,14 @@ export const Dashboard = () => {
     updateStore(setStore, "activeJob", null);
     updateStore(setStore, "editModalIsOpen", true);
   };
+
+  if (!auth.loggedIn()) return (
+    <>
+      You are not logged in
+      <br />
+      <Link to='/login'>Log in</Link>
+    </>
+  )
 
   return (
     //Contains aside and everything else

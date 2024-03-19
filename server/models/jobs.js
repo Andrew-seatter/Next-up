@@ -12,10 +12,15 @@ likes
 */
 
 //status will be a string designated by update events on front end
+// changed to contactName and companyName to match line up with front end
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const jobSchema = new Schema({
+  user_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
   jobTitle: {
     type: String,
     required: 'Your job has to have a title!',
@@ -23,18 +28,31 @@ const jobSchema = new Schema({
     maxlength: 280,
     trim: true,
   },
-  jobCompany: {
+  appUrl: String,
+  status: {
+    type: String,
+    enum: [
+      'interviewed',
+      'rejected',
+      'hired',
+      'applied'
+    ],
+    required: true,
+    default: 'applied'
+  },
+  companyName: {
     type: String,
     required: 'Your job has to have a company!',
     minlength: 1,
     maxlength: 45,
     trim: true,
   },
-  jobAuthor: {
+  contactName: {
     type: String,
     required: true,
-    trim: true,
-  },
+    minlength: 1,
+    maxlength: 40
+},
   createdAt: {
     type: Date,
     default: Date.now,
@@ -52,6 +70,12 @@ const jobSchema = new Schema({
     minlength: 1,
     maxlength: 400,
     trim: true
+  },
+  companyIcon: {
+    type: String,
+    minlength: 1,
+    maxlength: 500,
+    trim: true,
   },
   
   likes: [

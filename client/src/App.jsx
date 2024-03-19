@@ -17,7 +17,7 @@ import { useStore, updateStore } from "./lib/store.js";
 function App() {
   const [store, setStore] = useStore()
 
-   return (
+  return (
     <div>
       <Routes>
         <Route path="/" element={<Dashboard />} />

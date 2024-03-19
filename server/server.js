@@ -12,7 +12,22 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  plugins: [
+    {
+      requestDidStart(ctx) {
+        return {
+          didEncounterErrors(errors) {
+            console.log(`*****\n⬇ Apollo error ⬇\n*****`)
+            console.log(errors.source)
+            console.log(errors.errors)
+          }
+        }
+      }
+    }
+  ]
 });
+
+const { Jobs, User } = require('./models')
 
 const startApolloServer = async () => {
   await server.start();
@@ -33,7 +48,11 @@ const startApolloServer = async () => {
     });
   } 
 
-  db.once('open', () => {
+  db.once('open', async () => {
+    const jobs = await Jobs.find({})
+    const users = await User.find({})
+    // console.log('JOBS:', jobs)
+    // console.log('USERS:', users)
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
       console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
