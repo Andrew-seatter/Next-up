@@ -1,52 +1,62 @@
-import { 
-    Card,
-    CardContent,
-    Grid,
-} from '@mui/material';
+import {
+  Card,
+  CardContent,
+  Grid,
+  Fab,
+  Stack,
+  Typography,
+  Badge,
+} from "@mui/material";
 
-import { useStore, updateStore } from '../../lib/store'
+import './JobCard.css'
+import EditIcon from "@mui/icons-material/Edit";
+import { useStore, updateStore } from "../../lib/store";
 
 export default function JobCard({ job }) {
+  const [store, setStore] = useStore();
 
-    const [store, setStore] = useStore()
+  function editJob() {
+    updateStore(setStore, "activeJob", job);
+    updateStore(setStore, "editModalIsOpen", true);
+  }
 
-    function editJob() {
-        updateStore(setStore, 'activeJob', job)
-        updateStore(setStore, 'editModalIsOpen', true)
-    }
-
-    return (
-        <>        
-            <Grid 
-                item 
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
+  return (
+    <>
+      <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Card className="job-cards">
+          <CardContent>
+            <Stack
+              direction="row"
+              alignItems="center"
+              gap={2}
+              style={{ pt: 3 }}
+              sx={{ flexWrap: 'wrap' }}
             >
-                <Card>
-                    <CardContent>
-                        <h3>{job.jobTitle}</h3>
-                        <Grid container>
-                            <Grid item xs={6}>
-                                Company: {job.companyName}
-                            </Grid>
-                            <Grid item xs={6}>
-                                Date applied: {job.dateApplied}
-                            </Grid>
-                            <Grid item xs={6}>
-                                Stars: {job.stars}
-                            </Grid>
-                            <Grid item xs={6}>
-                                Status: {job.status}
-                            </Grid>
-                        </Grid>
-                        <button onClick={editJob}>
-                            Edit
-                        </button>
-                    </CardContent>
-                </Card>
-            </Grid>
-        </>
-    )
+              <Badge  classes={{ badge: 'custom-badge' }} badgeContent={job.status} color={job.status}>
+                <img
+                  src={`https://picsum.photos/seed/${Math.random()}/50/50`}
+                  style={{ width: "50px" }}
+                  alt=""
+                />
+              </Badge>
+              <h3 style={{ margin: 0 }} fontSize="large">{job.jobTitle}</h3>
+            </Stack>
+            <Stack direction="column" justifyContent="flex-end" gap = {.5}>
+                <Typography style={{ marginTop: '15px' }} fontSize="large"> 
+                    Company: {job.companyName} 
+                </Typography>
+                <Typography style={{ marginBottom: '5px' }} fontSize="large">
+                    Date Applied: {job.dateApplied}
+                </Typography>
+            </Stack>
+            <Stack direction="row" alignItems="center" justifyContent="flex-end" >
+                <Fab aria-label="edit" onClick={editJob} size="small">
+                    <EditIcon fontSize="small" color='primary'/>
+                </Fab>
+            </Stack>
+          </CardContent>
+        </Card>
+      </Grid>
+    </>
+  );
 }

@@ -10,11 +10,13 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    color: grey;
+    padding-top: 5px;
+
 }
 
 .list li {
-    background-color: var(--color-light);
-    border: 2px solid var(--color-dark); 
+    color: grey;
     border-radius: 5px; 
     margin: 10px; 
     padding: 10px; 
@@ -23,15 +25,18 @@
 }
 
 .list li:hover {
-    background-color: var(--color-primary);
-    border: 2px solid var(--color-secondary);
-    color: var(--text-light);
+    color:  var(--color-primary);
+    cursor: pointer;
+}
+
+.link:hover {
+    color:  var(--color-primary);
     cursor: pointer;
 }
 
 .link {
     text-decoration: none;
     font-size: 20px;
-    color: var(--text-light);
+    color: grey;
 }
 

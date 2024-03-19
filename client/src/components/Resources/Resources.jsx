@@ -1,4 +1,5 @@
 import { Grid, Typography, Link } from '@mui/material';
+import Sidebar from "../Navigation/Sidebar";
 
 const resources = {
     'Resume Help': [
@@ -37,25 +38,32 @@ const resources = {
 
 export const Resources = () => {
     return (
-        <Grid container spacing={2}>
-            {Object.entries(resources).map(([category, links]) => (
-                <Grid item xs={12} sm={6} key={category}>
-                    <Typography variant="h5" gutterBottom>
-                        {category}
-                    </Typography>
-                    <ul>
-                        {links.map((link, index) => (
-                            <li key={index}>
-                                <Link href={link.url} target="_blank" rel="noopener noreferrer">
-                                    {link.title}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </Grid>
-            ))}
+    <Grid container spacing={3} style={{ margin: "-17px" }}>
+            {/* Aside */}
+        <Grid item xs={2} className="sidebar-container">
+            <Sidebar />
+        </Grid>
+        <Grid item xs={10} id="dash" container spacing={2}>
+                {Object.entries(resources).map(([category, links]) => (
+                    <Grid item xs={12} sm={6} key={category}>
+                        <Typography variant="h5" gutterBottom>
+                            {category}
+                        </Typography>
+                        <ul>
+                            {links.map((link, index) => (
+                                <li key={index}>
+                                    <Link href={link.url} target="_blank" rel="noopener noreferrer">
+                                        {link.title}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </Grid>
+                ))}
+            </Grid>
         </Grid>
     );
 };
 
 export default Resources;
+

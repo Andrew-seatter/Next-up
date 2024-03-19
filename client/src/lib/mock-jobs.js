@@ -7,9 +7,9 @@ export default [{
   "notes": "Sed ante. Vivamus tortor. Duis mattis egestas metus.\n\nAenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.\n\nQuisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.",
   "contact": "Renato Wolfinger",
   "appUrl": "http://imdb.com/ante/vivamus/tortor/duis/mattis/egestas.jsp?integer=venenatis&ac=lacinia&neque=aenean&duis=sit&bibendum=amet&morbi=justo&non=morbi&quam=ut&nec=odio&dui=cras&luctus=mi&rutrum=pede&nulla=malesuada&tellus=in&in=imperdiet&sagittis=et&dui=commodo&vel=vulputate&nisl=justo&duis=in&ac=blandit&nibh=ultrices&fusce=enim",
-  "companyIcon": "https://baidu.com/primis/in/faucibus.jpg?aenean=sit&sit=amet&amet=justo&justo=morbi&morbi=ut&ut=odio&odio=cras&cras=mi&mi=pede&pede=malesuada&malesuada=in&in=imperdiet&imperdiet=et&et=commodo&commodo=vulputate&vulputate=justo&justo=in&in=blandit&blandit=ultrices&ultrices=enim&enim=lorem&lorem=ipsum&ipsum=dolor&dolor=sit&sit=amet&amet=consectetuer&consectetuer=adipiscing&adipiscing=elit&elit=proin&proin=interdum&interdum=mauris&mauris=non&non=ligula&ligula=pellentesque&pellentesque=ultrices&ultrices=phasellus&phasellus=id&id=sapien&sapien=in&in=sapien&sapien=iaculis&iaculis=congue&congue=vivamus&vivamus=metus&metus=arcu&arcu=adipiscing&adipiscing=molestie&molestie=hendrerit&hendrerit=at&at=vulputate&vulputate=vitae&vitae=nisl&nisl=aenean&aenean=lectus&lectus=pellentesque&pellentesque=eget&eget=nunc&nunc=donec&donec=quis&quis=orci&orci=eget&eget=orci&orci=vehicula&vehicula=condimentum&condimentum=curabitur&curabitur=in&in=libero&libero=ut&ut=massa&massa=volutpat&volutpat=convallis&convallis=morbi&morbi=odio&odio=odio&odio=elementum&elementum=eu&eu=interdum&interdum=eu&eu=tincidunt&tincidunt=in&in=leo&leo=maecenas&maecenas=pulvinar&pulvinar=lobortis&lobortis=est"
+  "companyIcon": "https://www.zilliondesigns.com/blog/wp-content/uploads/Twitter-New-Logo-X-2023-.jpg"
 }, {
-  "jobTitle": "Community Outreach Specialist",
+  "jobTitle": "Outreach Specialist",
   "companyName": "Meemm",
   "dateApplied": "3/1/2024",
   "status": "rejected",

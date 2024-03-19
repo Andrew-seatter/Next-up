@@ -9,9 +9,10 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate('thoughts');
     },
-    jobs: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Jobs.find(params).sort({ createdAt: -1 });
+    jobs: async (parent, { user_id }) => {
+      const jobs = await Jobs.find({user_id})
+        .sort({ createdAt: -1 });
+      return jobs
     },
     job: async (parent, { jobId }) => {
       return Jobs.findOne({ _id: jobId });
@@ -52,7 +53,7 @@ const resolvers = {
         const job = await Jobs.create({
           jobTitle,
           jobCompany,
-          jobAuthor: context.user.username,
+          user_id: context.user._id,
           stars,
           note,
           companyIcon
