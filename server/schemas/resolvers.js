@@ -4,21 +4,21 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('thoughts');
+      return User.find().populate('jobs');
     },
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate('thoughts');
     },
-    thoughts: async (parent, { username }) => {
+    jobs: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Thought.find(params).sort({ createdAt: -1 });
+      return Jobs.find(params).sort({ createdAt: -1 });
     },
-    thought: async (parent, { thoughtId }) => {
-      return Thought.findOne({ _id: thoughtId });
+    job: async (parent, { jobId }) => {
+      return Jobs.findOne({ _id: jobId });
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('thoughts');
+        return User.findOne({ _id: context.user._id }).populate('jobs');
       }
       throw AuthenticationError;
     },
@@ -47,30 +47,34 @@ const resolvers = {
 
       return { token, user };
     },
-    addThought: async (parent, { thoughtText }, context) => {
+    addJob: async (parent, { jobTitle, jobCompany, stars, note, companyIcon }, context) => {
       if (context.user) {
-        const thought = await Thought.create({
-          thoughtText,
-          thoughtAuthor: context.user.username,
+        const job = await Jobs.create({
+          jobTitle,
+          jobCompany,
+          jobAuthor: context.user.username,
+          stars,
+          note,
+          companyIcon
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { thoughts: thought._id } }
+          { $addToSet: { jobs: job._id } }
         );
 
-        return thought;
+        return job;
       }
       throw AuthenticationError;
       ('You need to be logged in!');
     },
-    addComment: async (parent, { thoughtId, commentText }, context) => {
+    addLike: async (parent, { jobId, like }, context) => {
       if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
+        return Jobs.findOneAndUpdate(
+          { _id: jobId },
           {
             $addToSet: {
-              comments: { commentText, commentAuthor: context.user.username },
+              likes: { like, likeAuthor: context.user.username },
             },
           },
           {
@@ -81,31 +85,31 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    removeThought: async (parent, { thoughtId }, context) => {
+    removeJob: async (parent, { jobId }, context) => {
       if (context.user) {
-        const thought = await Thought.findOneAndDelete({
-          _id: thoughtId,
-          thoughtAuthor: context.user.username,
+        const job = await Jobs.findOneAndDelete({
+          _id: jobId,
+          jobAuthor: context.user.username,
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { thoughts: thought._id } }
+          { $pull: { jobs: job._id } }
         );
 
-        return thought;
+        return job;
       }
       throw AuthenticationError;
     },
-    removeComment: async (parent, { thoughtId, commentId }, context) => {
+    removeLike: async (parent, { jobId, likeId }, context) => {
       if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
+        return Jobs.findOneAndUpdate(
+          { _id: jobId },
           {
             $pull: {
-              comments: {
-                _id: commentId,
-                commentAuthor: context.user.username,
+              likes: {
+                _id: likeId,
+                likeAuthor: context.user.username,
               },
             },
           },

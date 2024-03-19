@@ -5,8 +5,8 @@ type User {
     password: String
     jobs: [Jobs]
     goals: [Goals]
-    friends: [Friends]
-    friendRequests: [friendRequests]
+    friends: [Friend]
+    friendRequests: [FriendRequest]
 }
 
 type Jobs {
@@ -53,6 +53,23 @@ type FriendRequest {
 type Auth {
     token: ID!
     user: User
+}
+
+type Query {
+    users: [User]
+    user(username: String!): User
+    jobs(username: String): [Jobs]
+    job(jobId: ID!): Jobs
+    me: User
+}
+
+type Mutation {
+    addUser(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
+    addJob(jobTitle: String!, jobCompany: String!, stars: Int!, note: String!, companyIcon: String!): Jobs
+    addLike(likeId: ID!, like: Boolean): Jobs
+    removeJob(jobId: ID!): Jobs
+    removeLike(jobId: ID!, likeId: ID!): Jobs
   }
 `;
 
