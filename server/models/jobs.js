@@ -42,9 +42,16 @@ const jobSchema = new Schema({
   },
   stars: {
     type: Number,
+    required: 'Your job has to have a certain number of stars'
   },
   followUp: {
     type: Boolean
+  },
+  note: {
+    type: String,
+    minlength: 1,
+    maxlength: 400,
+    trim: true
   },
   
   likes: [
