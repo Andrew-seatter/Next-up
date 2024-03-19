@@ -1,0 +1,28 @@
+div .welcome-banner {
+    background-color: white;
+    width: 100%;
+    padding-left: 50px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .calendar {
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    background-color: white;
+  }
+  
+  .sidebar-container {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    padding: 1rem !important;
+    background-color: white;
+  }
+  
+  #dash {
+    padding-top: 0;
+  }
+  
+  .recent-job-apps {
+    margin-bottom:0;
+  }
