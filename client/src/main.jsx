@@ -56,8 +56,10 @@ theme = createTheme(theme, {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ApolloProvider client={client}>
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
+    </ThemeProvider>
   </ApolloProvider>
 )

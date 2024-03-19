@@ -5,8 +5,8 @@ import LoginPage from "./components/Login/Login";
 import RegistrationPage from "./components/Register/Register";
 import StatsPage from "./components/Stats/Stats";
 import ResourcesPage from "./components/Resources/Resources";
+import AllJobsPage from './components/AllJobs/AllJobs';
 
-import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import EditModal from './components/Dashboard/EditModal.jsx'
 
@@ -19,13 +19,13 @@ function App() {
 
    return (
     <div>
-      <Header />
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
         <Route path="/stats" element={<StatsPage />} />
         <Route path="/resources" element={<ResourcesPage />} />
+        <Route path='/allJobs' element = {<AllJobsPage/>} />
       </Routes>
       <Footer />
 
