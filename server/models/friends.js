@@ -21,6 +21,6 @@ createdAt: {
   },
 });
 
-const Friend = model('Friends', friendSchema);
+const Friend = model('Friend', friendSchema);
 
 module.exports = Friend;

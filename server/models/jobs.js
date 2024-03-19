@@ -33,8 +33,9 @@ const jobSchema = new Schema({
   jobAuthor: {
     type: String,
     required: true,
-    trim: true,
-  },
+    minlength: 1,
+    maxlength: 40
+},
   createdAt: {
     type: Date,
     default: Date.now,
@@ -52,6 +53,12 @@ const jobSchema = new Schema({
     minlength: 1,
     maxlength: 400,
     trim: true
+  },
+  companyIcon: {
+    type: String,
+    minlength: 1,
+    maxlength: 500,
+    trim: true,
   },
   
   likes: [

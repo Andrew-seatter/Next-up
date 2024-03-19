@@ -25,6 +25,12 @@ const goalSchema = new Schema({
         type: Date,
         default: Date.now,
         get: (timestamp) => dateFormat(timestamp),
+    },
+    goalAuthor: {
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 40
     }
 });
 
