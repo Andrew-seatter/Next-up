@@ -6,6 +6,7 @@ import RegistrationPage from "./components/Register/Register";
 import StatsPage from "./components/Stats/Stats";
 import ResourcesPage from "./components/Resources/Resources";
 import AllJobsPage from './components/AllJobs/AllJobs';
+import Home from "./components/HomePage/Home"
 
 import { Footer } from "./components/Footer/Footer";
 import EditModal from './components/Dashboard/EditModal.jsx'
@@ -14,13 +15,16 @@ import { Modal, Box } from "@mui/material";
 
 import { useStore, updateStore } from "./lib/store.js";
 
+import auth from "../utils/auth.js";
+
 function App() {
   const [store, setStore] = useStore()
 
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={auth.loggedIn ? <Dashboard/> : <Home/>} />
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
         <Route path="/stats" element={<StatsPage />} />

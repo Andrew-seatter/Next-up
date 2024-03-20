@@ -1,0 +1,33 @@
+.homepage-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/homepage_image.png");
+  background-repeat: no-repeat;
+  border: 4px SOLID BLUE;
+  background-size: cover;
+}
+
+.navbar {
+  padding-top: 10px;
+  padding-right: 50px;
+  padding-bottom: 10px;
+}
+
+.next-up-container {
+  position: relative;
+  background-image: url("/next-up-logo.png");
+  width: 60%;
+  background-repeat: no-repeat;
+  border: 2px yellow solid;
+}
+
+.next-up-arrow {
+  background-image: url("/next-up-arrow.png");
+  background-repeat: no-repeat;
+}
+
+.next-up-logo {
+  background-image: url("/next-up-logo.png");
+  position: absolute;
+  top: 500px;
+}

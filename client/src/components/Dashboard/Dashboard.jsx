@@ -3,7 +3,6 @@ import { Grid, Stack, Fab, Button } from "@mui/material";
 import JobCard from "./JobCard";
 import Sidebar from "../Navigation/Sidebar";
 import AddIcon from "@mui/icons-material/Add";
-import CardMedia from '@mui/material/CardContent';
 import { DateCalendar, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -34,7 +33,7 @@ export const Dashboard = () => {
     if (error && MOCK) {
       jobs = mockJobs.slice(0, 8);
     } else {
-      console.log("DATA:", data)
+      // console.log("DATA:", data)
       // console.log("JOBS:", jobs)
       jobs = data.jobs;
     }
@@ -45,6 +44,14 @@ export const Dashboard = () => {
     updateStore(setStore, "activeJob", null);
     updateStore(setStore, "editModalIsOpen", true);
   };
+
+ // deletejob function to update the global state when the "add" button is clicked
+
+
+
+
+
+
 
   if (!auth.loggedIn()) return (
     <>
@@ -70,9 +77,13 @@ export const Dashboard = () => {
             <AddIcon />
           </Fab>
         </Stack>
-        <Stack direction="row" justifyContent="space-between" gap={4}>
-          <div className="welcome-banner">
-            <h1>Welcome Banner</h1>
+        <Stack direction="row" gap={4}>
+          <div className="welcome-box">
+            <div className="welcome-banner">
+              <h1>Welcome back, Banner</h1>
+              <h3>You submitted XX jobs this week, keep up the great work!</h3>
+            </div>
+            <div className="books-img-box"></div>
           </div>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateCalendar

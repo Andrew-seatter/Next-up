@@ -48,28 +48,51 @@ const resolvers = {
 
       return { token, user };
     },
-    addJob: async (parent, { jobTitle, jobCompany, stars, note, companyIcon }, context) => {
-      if (context.user) {
-        const job = await Jobs.create({
-          jobTitle,
-          jobCompany,
-          user_id: context.user._id,
-          stars,
-          note,
-          companyIcon,
-          contactName
-        });
+    addJob: async (parent, { input }, context) => {
+      try {
+        const job = await Jobs.create(input);
 
         await User.findOneAndUpdate(
-          { _id: context.user._id },
+          { _id: input.user_id },
           { $addToSet: { jobs: job._id } }
         );
 
         return job;
+      } catch (error) {
+        console.log("Error adding job!")
+        console.log(error)
       }
-      throw AuthenticationError;
-      ('You need to be logged in!');
+      // throw AuthenticationError;
+      // ('You need to be logged in!');
     },
+
+    updateJob: async (parent, {jobId, input}, context) => {
+      console.log("updating job...")
+      try {
+          const updatedJob = await Jobs.findByIdAndUpdate(jobId, input, {new:true});
+
+        } catch (updatedError) {
+          console.log("Error updating job")
+          console.log(updatedError)
+          throw AuthenticationError
+        } 
+        if (!updatedJob) {
+          throw new Error ("Error saving Job");
+        } 
+        if (updatedJob.user_id) {
+          try {
+            await User.findOneAndUpdate(
+              {_id: updatedJob.user_id},
+              {$addToSet: {jobs: jobId}}
+            )
+            return updatedJob;
+          } catch (err) {
+            console.log("Error updating job")
+            console.log(updatedError)
+          }
+        }
+      },
+  
     addLike: async (parent, { jobId, like }, context) => {
       if (context.user) {
         return Jobs.findOneAndUpdate(

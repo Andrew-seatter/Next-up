@@ -4,14 +4,7 @@ import { Stack, } from "@mui/material";
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import PieChartOutlineIcon from '@mui/icons-material/PieChartOutline';
 import LaptopChromebookIcon from '@mui/icons-material/LaptopChromebook';
-
-/*
-    git add .
-    git commit -m "describe changes"
-    git push origin feature/jobscards-reconfigured
-*/
-
-
+import Button from '@mui/material/Button';
 
 export const Sidebar = () => {
     return (
@@ -45,6 +38,12 @@ export const Sidebar = () => {
                         <NavLink to="/resources" className={styles.link}> Resources</NavLink>
                     </Stack>
                     </li>
+                    <li>
+                        <Stack direction='row' alignItems='center' gap={3}>
+                            <Button variant="outlined">
+                               Sign out
+                            </Button>
+                    </Stack></li>
                 </ul>
             </div>
         </div>
