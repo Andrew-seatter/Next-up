@@ -49,10 +49,10 @@ const startApolloServer = async () => {
   } 
 
   db.once('open', async () => {
-    const jobs = await Jobs.find({})
-    const users = await User.find({})
-    console.log('JOBS:', jobs)
-    console.log('USERS:', users)
+    // const jobs = await Jobs.find({})
+    // const users = await User.find({})
+    // console.log('JOBS:', jobs)
+    // console.log('USERS:', users)
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
       console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
