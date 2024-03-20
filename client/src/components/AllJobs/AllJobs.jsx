@@ -4,22 +4,6 @@ import Sidebar from "../Navigation/Sidebar";
 import SearchIcon from "@mui/icons-material/Search";
 
 export default function AllJobs() {
-  //     const [jobs, setJobs] = useState([]);
-  //     const [loading, setLoading] = useState(true);
-
-  //     useEffect(() => {
-  //       // Fetch jobs data from database
-  //       // Replace this with actual data fetching logic
-  //       fetchJobs()
-  //         .then(data => {
-  //           setJobs(data);
-  //           setLoading(false
-  //         })
-  //         .catch(error => {
-  //           console.error('Error fetching jobs:', error);
-  //           setLoading(false);
-  //         });
-  //     }, []);
 
   return (
     <>
