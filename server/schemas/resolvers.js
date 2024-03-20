@@ -56,7 +56,8 @@ const resolvers = {
           user_id: context.user._id,
           stars,
           note,
-          companyIcon
+          companyIcon,
+          contactName
         });
 
         await User.findOneAndUpdate(
