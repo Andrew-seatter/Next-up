@@ -49,7 +49,7 @@ const jobSchema = new Schema({
   },
   contactName: {
     type: String,
-    required: true,
+    required: false,
     minlength: 1,
     maxlength: 40
 },
