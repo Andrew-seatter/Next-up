@@ -19,7 +19,7 @@ export const Login = () => {
     });
   };
 
-  if (!error) {
+  if (!error && data?.login?.token) {
     auth.login(data.login.token);
   }
 
