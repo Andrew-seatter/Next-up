@@ -9,6 +9,7 @@ export const LineChartCard = () => {
         <div>
             <LineChart
                 xAxis={transformedData.xAxis}
+                yAxis={transformedData.yAxis}
                 series={transformedData.series}
                 width={500}
                 height={300}
@@ -31,6 +32,14 @@ const transformDataForChart = (data) => {
     return {
         xAxis: [{
             data: transformedData.map(item => item.date),
+            scaleType: 'time',
+        }],
+        yAxis: [{
+            id: 'yAxis1',
+            scaleType: 'linear',
+            min: 0,
+            max: 10,
+            tickNumber: 11,
         }],
         series: [{
             data: transformedData.map(item => item.applications),
