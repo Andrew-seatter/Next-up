@@ -1,11 +1,21 @@
 import { BarChart } from '@mui/x-charts/BarChart';
+import { interviewSuccessRateSeed } from '../../../lib/mock-stats.js';
 
 export const BarChartCard = () => {
+    const months = interviewSuccessRateSeed.map(item => item.month);
+    const successData = interviewSuccessRateSeed.map(item => item.success);
+    const totalData = interviewSuccessRateSeed.map(item => item.total);
+
+
+
     return (
         <div>
             <BarChart
-                xAxis={[{ scaleType: 'band', data: ['group A', 'group B', 'group C'] }]}
-                series={[{ data: [4, 3, 5] }, { data: [1, 6, 3] }, { data: [2, 5, 6] }]}
+                xAxis={[{ scaleType: 'band', data: months }]}
+                series={[
+                    { name: 'Success', data: successData }, 
+                    { name: 'Total Applications', data: totalData }
+                ]}
                 width={500}
                 height={300}
             />
@@ -13,6 +23,6 @@ export const BarChartCard = () => {
         </div>
 
     )
-}
+}; 
 
 export default BarChartCard;
