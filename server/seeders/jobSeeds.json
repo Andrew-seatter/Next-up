@@ -1,80 +1,90 @@
 [
     {
+      "user_id": "65fb6114df57402c3fdc8811",
       "jobTitle": "Software Engineer 1",
-      "jobCompany": "LinkedIn",
-      "jobAuthor": "Brian Kernighan",
+      "companyName": "LinkedIn",
+      "status": "applied",
       "stars": 4,
       "note": "follow up in two days",
       "companyIcon":"https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png"
     },
-    {
+    {   
+        "user_id": "65fb6114df57402c3fdc8813",
         "jobTitle": "Data Engineer",
-        "jobCompany": "Netflix",
-        "jobAuthor": "Max Kanat-Alexander",
+        "companyName": "Netflix",
+        "status": "hired",
         "stars": 5,
         "note": "really excited about this one",
         "companyIcon":"https://images.ctfassets.net/y2ske730sjqp/5QQ9SVIdc1tmkqrtFnG9U1/de758bba0f65dcc1c6bc1f31f161003d/BrandAssets_Logos_02-NSymbol.jpg?w=940"
     },
-    {
+    {   
+        "user_id": "65fb6114df57402c3fdc8814",
         "jobTitle": "Back End Developer",
-        "jobCompany": "Meta",
-        "jobAuthor": "Why The Lucky Stiff",
+        "companyName": "Meta",
+        "status": "interviewed",
         "stars": 4,
         "note": "Finish online assesment by tuesday",
         "companyIcon":"https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta-Logo.png"
     },
-    {
+    {   
+        "user_id": "65fb6114df57402c3fdc8816",
         "jobTitle": "Staff Software Engineer",
-        "jobCompany": "Youtube",
-        "jobAuthor": "Kent Beck",
+        "companyName": "Youtube",
+        "status": "rejected",
         "stars": 3,
         "note": "Haven't heard anything yet",
         "companyIcon":"https://cdn.mos.cms.futurecdn.net/8gzcr6RpGStvZFA2qRt4v6-1200-80.jpg"
     },
-    {
+    {   
+        "user_id": "65fb6114df57402c3fdc8815",
         "jobTitle": "Senior Software Engineer",
-        "jobCompany": "Google",
-        "jobAuthor": "Edward V. Berard",
+        "companyName": "Google",
+        "status": "interviewed",
         "stars": 3,
         "note": "Team seems really great",
         "companyIcon":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1200px-Google_2015_logo.svg.png"
     },
-    {
+    {   
+        "user_id": "65fb6114df57402c3fdc8818",
         "jobTitle": "Embedded Software Developer",
-        "jobCompany": "Apple",
-        "jobAuthor": "Alan Kay",
+        "companyName": "Apple",
+        "status": "applied",
         "stars": 2,
         "note": "Contact recruiter tomorrow morning",
         "companyIcon":"https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
     },
-    {
+    {   
+        "user_id": "65fb6114df57402c3fdc8817",
         "jobTitle": "Principal Engineer",
-        "jobCompany": "Amazon",
-        "jobAuthor": "C.A.R. Hoare",
+        "companyName": "Amazon",
+        "status": "rejected",
         "stars": 2,
         "note": "Second Interview tuesday at 11",
         "companyIcon":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8tkEGqId1XYXKMTcB3UsQlP6zMqE0e3Y-HL2PrP5ubw&s"
     },
-    {
+    {   
+        "user_id": "65fb6114df57402c3fdc8819",
         "jobTitle": "Cybersecurity Analyst",
-        "jobCompany": "Microsoft",
-        "jobAuthor": "David Thomas",
+        "companyName": "Microsoft",
+        "status": "hired",
         "stars": 4,
         "note": "Blue team position",
         "companyIcon":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png"
     },
-    {
+    {   
+        "user_id": "65fb6114df57402c3fdc8810",
         "jobTitle": "Project Manager",
-        "jobCompany": "Intuit",
-        "jobAuthor": "Donald Knuth",
+        "companyName": "Intuit",
+        "status": "applied",
         "stars": 5,
         "note": "Reach out to Michael Pacheco(Goated Lead Engineer)",
         "companyIcon":"https://www.intuit.com/blog/wp-content/uploads/2017/09/Intuit_256x256.jpg?w=256"
     },
-    {
+    {   
+        "user_id": "65fb6114df57402c3fdc8812",
         "jobTitle": "Jr. Software Engineer",
-        "jobCompany": "Myspace",
-        "jobAuthor": "Lernantino",
+        "companyName": "Myspace",
+        "status": "interviewed",
         "stars": 4,
         "note": "Still need to schedule interview",
         "companyIcon":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSevWcKVAsUCewhVFsvsUxeS8q95Xu2EzEkrwJHDk0vEA&s"
