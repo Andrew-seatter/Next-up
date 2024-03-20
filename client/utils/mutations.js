@@ -63,24 +63,3 @@ mutation updateJob($jobId: ID!, $input: JobInput!) {
 `
 
 
-
-export const REMOVE_JOB = gql `
-mutation removeJob($jobId: ID ) {
-        removeJob(jobTitle: $jobTitle, jobCompany: $jobCompany, user_id: $user_id, 
-            stars: $stars, note: $note, companyIcon: $companyIcon){
-                jobTitle
-                companyName
-                user_id
-                stars
-                note
-                comapnyIcon
-                createdAt
-                likes {
-                    likeAuthor
-                    like
-                    createdAt
-                }
-            }
-    }
-`
-
