@@ -9,20 +9,34 @@ type User {
     friendRequests: [FriendRequest]
 }
 
+input JobInput {
+    user_id: ID!
+    jobTitle: String!
+    companyName: String!
+    contactName: String!
+    createdAt: String!
+    stars: Int!
+    followUp: Boolean!
+    note: String!
+    companyIcon: String!
+    appUrl: String!
+    status: String!
+}
+
 type Job {
     _id: ID
     user_id: ID!
-    jobTitle: String
-    companyName: String
-    contactName: String
-    createdAt: String
-    stars: Int
-    followUp: Boolean
-    note: String
-    companyIcon: String
+    jobTitle: String!
+    companyName: String!
+    contactName: String!
+    createdAt: String!
+    stars: Int!
+    followUp: Boolean!
+    note: String!
+    companyIcon: String!
     likes: [Likes]
-    appUrl: String
-    status: String
+    appUrl: String!
+    status: String!
 }
 
 type Likes {
@@ -69,7 +83,8 @@ type Query {
 type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addJob(jobTitle: String!, jobCompany: String!, stars: Int!, note: String!, companyIcon: String!): Job
+    addJob(input: JobInput!): Job
+    updateJob(jobId: ID!, input: JobInput!): Job
     addLike(likeId: ID!, like: Boolean): Job
     removeJob(jobId: ID!): Job
     removeLike(jobId: ID!, likeId: ID!): Job
