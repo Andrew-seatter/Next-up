@@ -1,16 +1,14 @@
 import { PieChart } from '@mui/x-charts/PieChart';
+import { jobStatusSeed } from '../../../lib/mock-stats.js';
 
 export const PieChartCard = () => {
+    const transformedData = transformDataForChart(jobStatusSeed);
     return (
         <div>
             <PieChart
                 series={[
-                    {
-                        data: [
-                            { id: 0, value: 10, label: 'series A' },
-                            { id: 1, value: 15, label: 'series B' },
-                            { id: 2, value: 20, label: 'series C' },
-                        ],
+                    { 
+                        data: transformedData
                     },
                 ]}
                 width={400}
@@ -18,6 +16,15 @@ export const PieChartCard = () => {
             />
         </div>
     )
-}
+};
+
+const transformDataForChart = (seedData) => {
+    const transformedData = seedData.map((item, index) => ({
+        id: index,
+        label: item.status,
+        value: item.count
+    }));
+    return transformedData;
+};
 
 export default PieChartCard;

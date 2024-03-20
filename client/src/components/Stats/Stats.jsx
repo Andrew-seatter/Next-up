@@ -6,7 +6,7 @@ import { Grid, Box } from "@mui/material";
 import BarChartCard from "./Charts/BarChart";
 import PieChartCard from "./Charts/PieChart";
 import LineChartCard from "./Charts/LineChart";
-import ScatterChartCard from "./Charts/ScatterChart";
+// import ScatterChartCard from "./Charts/ScatterChart";
 
 export const Stats = () => {
   return (
@@ -29,8 +29,7 @@ export const Stats = () => {
                 </h2>
                 <LineChartCard />
                 <p>
-                  Line or Bar chart: Track the number of applications submitted
-                  over a certain period (weekly, monthly, quarterly).
+                  Number of applications submitted.
                 </p>
               </Box>
             </Grid>
@@ -41,19 +40,7 @@ export const Stats = () => {
                 </h2>
                 <PieChartCard />
                 <p>
-                  Pie chart: Track the number of applications by status (applied,
-                  interviewed, etc).
-                </p>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6}>
-              <Box padding={2}>
-                <h2>
-                  Response Rate
-                </h2>
-                <PieChartCard />
-                <p>
-                  Pie chart: Percentage of applications that received a response.
+                  Track the number of applications by status.
                 </p>
               </Box>
             </Grid>
@@ -64,29 +51,7 @@ export const Stats = () => {
                 </h2>
                 <BarChartCard />
                 <p>
-                  Bar chart: Ratio of interviews that led to job offers.
-                </p>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6}>
-              <Box padding={2}>
-                <h2>
-                  Applications by Job Role
-                </h2>
-                <BarChartCard />
-                <p>
-                  Bar chart: Distribution of applications by different
-                  roles/industries.
-                </p>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6}>
-              <Box padding={2}>
-                <h2>Salary Trends</h2>
-                <ScatterChartCard />
-                <p>
-                  Line chart or Scatter Plot: Track offered or expected salaries,
-                  or compare both.
+                  Ratio of applications that lead to interviews.
                 </p>
               </Box>
             </Grid>
