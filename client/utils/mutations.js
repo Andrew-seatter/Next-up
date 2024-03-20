@@ -45,4 +45,24 @@ mutation addJob($jobTitle: String!, $jobCompany: String!, $user_id: ID!, $stars:
     }
 `
 
+export const DELETE_JOB = gql `
+mutation deleteJob($jobTitle: String!, $jobCompany: String!, $user_id: ID!, $stars: Int!, 
+    $note: String!, $companyIcon: String! ) {
+        deleteJob(jobTitle: $jobTitle, jobCompany: $jobCompany, user_id: $user_id, 
+            stars: $stars, note: $note, companyIcon: $companyIcon){
+                jobTitle
+                jobCompany
+                user_id
+                stars
+                note
+                comapnyIcon
+                createdAt
+                likes {
+                    likeAuthor
+                    like
+                    createdAt
+                }
+            }
+    }
+`
 
