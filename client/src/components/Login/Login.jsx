@@ -35,10 +35,12 @@ export const Login = () => {
 
   if (!error && data?.login?.token) {
     auth.login(data.login.token);
+    window.location.href = '/dashboard';
   }
 
   if (!signUpError && signUpData?.signUp?.token) {
     auth.login(signUpData.signUp.token);
+    window.location.href = '/dashboard';
   }
 
   return (

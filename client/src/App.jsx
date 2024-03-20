@@ -23,8 +23,9 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={auth.loggedIn ? <Dashboard/> : <Home/>} />
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+        <Route path="/" element={<Home/>} />
+        {/* auth.loggedIn ? <Dashboard/> :  */}
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
         <Route path="/stats" element={<StatsPage />} />
