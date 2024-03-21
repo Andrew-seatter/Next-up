@@ -7,6 +7,7 @@ type User {
     goals: [Goals]
     friends: [Friend]
     friendRequests: [FriendRequest]
+    jobsThisWeek: Int
 }
 
 input JobInput {
@@ -86,7 +87,7 @@ type Mutation {
     addJob(input: JobInput!): Job
     updateJob(jobId: ID!, input: JobInput!): Job
     addLike(likeId: ID!, like: Boolean): Job
-    removeJob(jobId: ID!): Job
+    removeJob(jobId: ID!, userId: ID!): Job
     removeLike(jobId: ID!, likeId: ID!): Job
   }
 `;

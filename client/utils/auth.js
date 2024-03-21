@@ -4,7 +4,7 @@ class AuthService {
   getProfile() {
     // console.log(this.token)
     try {
-      return decode(this.getToken()||"");
+      return decode(this.getToken());
     } catch (error) {
       console.log("Error decoding token")
       console.log(error)

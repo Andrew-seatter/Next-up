@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 const dateFormat = require('../utils/dateFormat');
+const Job = require('./jobs.js')
 
 const userSchema = new Schema({
   username: {
@@ -43,7 +44,23 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'FriendRequest',
     }
-  ]
+  ],
+  jobsThisWeek: {
+    type: Number,
+    get: async function() {
+      const jobs = this.jobs
+      let n = 0
+      let now = new Date()
+      for (let i = 0; i < jobs.length; i++) {
+        const j = await Job.findById(jobs[i])
+        let jobDate = new Date(j.createdAt)
+        if ((jobDate - now) < (7*24*60*60*1000)) {
+          n++
+        }
+      }
+      return n
+    }
+  }
 });
 
 // set up pre-save middleware to create password
@@ -60,6 +77,7 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
+
 
 const User = model('User', userSchema);
 

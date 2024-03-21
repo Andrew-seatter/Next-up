@@ -61,5 +61,11 @@ mutation updateJob($jobId: ID!, $input: JobInput!) {
             }
     }
 `
+export const REMOVE_JOB =gql `
+  mutation removeJob($jobId: ID!, $userId: ID!) {
+      removeJob(jobId: $jobId, userId: $userId) {
+        jobTitle
+      }
+  }
 
-
+`

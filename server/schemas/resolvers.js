@@ -1,25 +1,24 @@
-const { User, Goals, Jobs, Friend, FriendRequest } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+const { User, Goals, Jobs, Friend, FriendRequest } = require("../models");
+const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('jobs');
+      return User.find().populate("jobs");
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('thoughts');
+      return User.findOne({ username })
     },
     jobs: async (parent, { user_id }) => {
-      const jobs = await Jobs.find({user_id})
-        .sort({ createdAt: -1 });
-      return jobs
+      const jobs = await Jobs.find({ user_id }).sort({ createdAt: -1 });
+      return jobs;
     },
     job: async (parent, { jobId }) => {
       return Jobs.findOne({ _id: jobId });
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('jobs');
+        return User.findOne({ _id: context.user._id }).populate("jobs");
       }
       throw AuthenticationError;
     },
@@ -59,40 +58,43 @@ const resolvers = {
 
         return job;
       } catch (error) {
-        console.log("Error adding job!")
-        console.log(error)
+        console.log("Error adding job!");
+        console.log(error);
       }
       // throw AuthenticationError;
       // ('You need to be logged in!');
     },
 
-    updateJob: async (parent, {jobId, input}, context) => {
-      console.log("updating job...")
+    updateJob: async (parent, { jobId, input }, context) => {
+      console.log("updating job...");
+      let updatedJob
       try {
-          const updatedJob = await Jobs.findByIdAndUpdate(jobId, input, {new:true});
-
-        } catch (updatedError) {
-          console.log("Error updating job")
-          console.log(updatedError)
-          throw AuthenticationError
-        } 
-        if (!updatedJob) {
-          throw new Error ("Error saving Job");
-        } 
-        if (updatedJob.user_id) {
-          try {
-            await User.findOneAndUpdate(
-              {_id: updatedJob.user_id},
-              {$addToSet: {jobs: jobId}}
-            )
-            return updatedJob;
-          } catch (err) {
-            console.log("Error updating job")
-            console.log(updatedError)
-          }
+        updatedJob = await Jobs.findByIdAndUpdate(jobId, input, {
+          new: true,
+        });
+      } catch (updatedError) {
+        console.log("Error updating job");
+        console.log(updatedError);
+        throw AuthenticationError;
+      }
+      if (!updatedJob) {
+        console.log("Job not found")
+        throw new Error("Error saving Job");
+      }
+      if (updatedJob.user_id) {
+        try {
+          await User.findOneAndUpdate(
+            { _id: updatedJob.user_id },
+            { $addToSet: { jobs: jobId } }
+          );
+          return updatedJob;
+        } catch (err) {
+          console.log("Error updating job");
+          console.log(updatedError);
         }
-      },
-  
+      }
+    },
+
     addLike: async (parent, { jobId, like }, context) => {
       if (context.user) {
         return Jobs.findOneAndUpdate(
@@ -110,20 +112,18 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    removeJob: async (parent, { jobId }, context) => {
-      if (context.user) {
-        const job = await Jobs.findOneAndDelete({
-          _id: jobId,
-          jobAuthor: context.user.username,
-        });
+    removeJob: async (parent, { jobId, userId }, context) => {
+      const job = await Jobs.findOneAndDelete({
+        _id: jobId,
+        // jobAuthor: context.user.username,
+      });
 
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { jobs: job._id } }
-        );
+      await User.findOneAndUpdate(
+        { _id: userId },
+        { $pull: { jobs: job._id } }
+      );
 
-        return job;
-      }
+      return job;
       throw AuthenticationError;
     },
     removeLike: async (parent, { jobId, likeId }, context) => {
