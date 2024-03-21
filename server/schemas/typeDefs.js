@@ -16,10 +16,10 @@ input JobInput {
     contactName: String!
     createdAt: String!
     stars: Int!
-    followUp: Boolean!
-    note: String!
-    companyIcon: String!
-    appUrl: String!
+    followUp: Boolean
+    note: String
+    companyIcon: String
+    appUrl: String
     status: String!
 }
 
@@ -31,11 +31,10 @@ type Job {
     contactName: String!
     createdAt: String!
     stars: Int!
-    followUp: Boolean!
-    note: String!
-    companyIcon: String!
-    likes: [Likes]
-    appUrl: String!
+    followUp: Boolean
+    note: String
+    companyIcon: String
+    appUrl: String
     status: String!
 }
 
