@@ -24,7 +24,6 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Home/>} />
-        {/* auth.loggedIn ? <Dashboard/> :  */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />

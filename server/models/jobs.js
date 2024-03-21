@@ -55,8 +55,11 @@ const jobSchema = new Schema({
 },
   createdAt: {
     type: Date,
+    required: true,
     default: Date.now,
-    get: (timestamp) => dateFormat(timestamp),
+    // createdAt is a date object, but when you try to access it, it becomes a string
+    // get: (timestamp) => dateFormat(timestamp),
+    set: (value) => new Date(value)
   },
   stars: {
     type: Number,

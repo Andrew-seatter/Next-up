@@ -1,74 +1,184 @@
 import { useStore, updateStore } from "../../lib/store";
-import { TextField, Grid, Stack, Checkbox, InputLabel, MenuItem, Select } from "@mui/material";
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
-import {useMutation} from '@apollo/client';
-import { ADD_JOB, ADD_USER, UPDATE_JOB } from "../../../utils/mutations";
+import React, { useState } from "react";
+import {
+  TextField,
+  Grid,
+  Stack,
+  Checkbox,
+  InputLabel,
+  MenuItem,
+  Select,
+  Tooltip,
+  FormGroup,
+  FormControlLabel,
+} from "@mui/material";
+import PropTypes from "prop-types";
+import { styled } from "@mui/material/styles";
+import Rating from "@mui/material/Rating";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
+import SentimentSatisfiedIcon from "@mui/icons-material/SentimentSatisfied";
+import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useMutation } from "@apollo/client";
+import { ADD_JOB, ADD_USER, UPDATE_JOB, REMOVE_JOB } from "../../../utils/mutations";
 import auth from "../../../utils/auth";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
+// Star icons for how excited user feels about the job
+const StyledRating = styled(Rating)(({ theme }) => ({
+  "& .MuiRating-iconEmpty .MuiSvgIcon-root": {
+    color: theme.palette.action.disabled,
+  },
+}));
+
+const customIcons = {
+  1: {
+    icon: <SentimentVeryDissatisfiedIcon color="error" />,
+    label: "Very Dissatisfied",
+  },
+  2: {
+    icon: <SentimentDissatisfiedIcon color="error" />,
+    label: "Dissatisfied",
+  },
+  3: {
+    icon: <SentimentSatisfiedIcon color="warning" />,
+    label: "Neutral",
+  },
+  4: {
+    icon: <SentimentSatisfiedAltIcon color="success" />,
+    label: "Satisfied",
+  },
+  5: {
+    icon: <SentimentVerySatisfiedIcon color="success" />,
+    label: "Very Satisfied",
+  },
+};
+
+function IconContainer(props) {
+  const { value, ...other } = props;
+  return <span {...other}>{customIcons[value].icon}</span>;
+}
+
+IconContainer.propTypes = {
+  value: PropTypes.number.isRequired,
+};
+
+// Statuses for the job application
+const statuses = ["interviewed", "hired", "pending", "rejected", "applied"];
+
+// EditModal component
 export default function EditModal({ close }) {
   const [store, setStore] = useStore();
-  const [addJob, {data: addJobData, error: addJobError, loading: addJobLoading}] = useMutation(ADD_JOB)
-  const [updateJob, {data: updateJobData, error: updateJobError, loading: updateJobLoading}] = useMutation(UPDATE_JOB)
+  const [
+    addJob,
+    { data: addJobData, error: addJobError, loading: addJobLoading },
+  ] = useMutation(ADD_JOB);
+  const [
+    updateJob,
+    { data: updateJobData, error: updateJobError, loading: updateJobLoading },
+  ] = useMutation(UPDATE_JOB);
+  const [
+    removeJob,
+    { data: removeJobData, error: removeJobError, loading: removeJobLoading },
+  ] = useMutation(REMOVE_JOB);
 
+  const [selectedStatus, setSelectedStatus] = useState(statuses[0]);
+
+  // Update job function to update the global state when the "save" button is clicked
   const handleUpdateJob = (formData) => {
     // do form validation before this
-    console.log(formData)
-    updateJob({variables: {
-      input: formData,
-      jobId: store?.activeJob?._id
-    }})
+    console.log(formData);
+    updateJob({
+      variables: {
+        input: {...formData, companyIcon: "image.svg"},
+        jobId: store?.activeJob?._id,
+      },
+    });
   };
 
+  // Add job function to update the global state when the "add" button is clicked
   const handleAddJob = (formData) => {
+    console.log("attempting to add job")
     // do form validation before this
-    console.log(formData)
-    addJob({variables: {input: formData}})
+    console.log(formData);
+    addJob({ variables: { input: {...formData, companyIcon: "image.svg"} } });
   };
 
-  if (!addJobError) {
-    console.log("Error adding job!", addJobError)
-    if (addJobError?.message) alert(addJobError?.message)
+  const handleRemoveJob = e => {
+    e.preventDefault()
+    removeJob({
+      variables: {
+        jobId: store?.activeJob?._id,
+        userId: auth.getProfile()?.data._id
+      }
+    })
   }
 
+  // add job actions
+  if (addJobError?.message) {
+    console.log("Error adding job!", addJobError);
+    alert(addJobError?.message);
+  }
   if (addJobData && !addJobError) {
-    location.reload()
+    location.reload();
   }
 
-  if (!updateJobError) {
-    console.log("Error updating job!", updateJobError)
-    if (updateJobError?.message) alert(updateJobError?.message)
+  // update job actions
+  if (updateJobError?.message) {
+    console.log("Error updating job!", updateJobError);
+    alert(updateJobError?.message);
   }
-
   if (updateJobData && !updateJobError) {
-    location.reload()
+    location.reload();
   }
 
-  return (
-    <form 
-        onSubmit={(e) => {
-          e.preventDefault()
-          // trick for turning form data into an object
+  // delete job actions
+  if (removeJobError?.message) {
+    console.log ("Error deleting job!", removeJobError);
+    alert(removeJobError?.message);
+  }
+  if (removeJobData && !removeJobError) {
+    location.reload();
+  }
 
-          const formData = {
-            ...Object.fromEntries(new FormData(e.target)),
-            user_id: auth.getProfile()?.data?._id
-          }
-          console.log("formData:", formData)
-          formData.followUp = formData.followUp === 'on'
-          formData.stars = Number(formData.stars) || 0
-          if (store?.activeJob) {
-            //  we're editing -> call updateJob
-            handleUpdateJob(formData);
-          } else {
-            // we're adding -> call addJob
-            handleAddJob(formData);
-          }
-        }}
-      >
+
+  // Return the form for the EditModal component
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        // turning form data into an object
+        const formData = {
+          ...Object.fromEntries(new FormData(e.target)),
+          user_id: auth.getProfile()?.data?._id,
+        };
+        console.log("formData:", formData);
+        formData.followUp = formData.followUp === "on";
+        formData.stars = Number(formData.stars) || 0;
+        if (store?.activeJob) {
+          //  we're editing -> call updateJob
+          handleUpdateJob(formData);
+        } else {
+          // we're adding -> call addJob
+          handleAddJob(formData);
+        }
+      }}
+    >
       <Stack direction="row" justifyContent="space-between">
         <h3>Job Information</h3>
-        <button onClick={close}>X</button>
+        <Tooltip
+          title="Close"
+          enterDelay={500}
+          leaveDelay={200}
+          placement="top-end"
+        >
+          <HighlightOffIcon fontSize="small" onClick={close}>
+            X
+          </HighlightOffIcon>
+        </Tooltip>
       </Stack>
       <Grid container spacing={2}>
         <Grid item xs={6}>
@@ -101,41 +211,13 @@ export default function EditModal({ close }) {
             label="Date Applied"
             defaultValue={store?.activeJob?.createdAt || ""}
             name="createdAt"
-          />
-
-        <Grid item xs={6}>
-          <span>Followed up?</span>
-          <Checkbox
-            id="outlined-number"
-            label="Follow-up date"
-            type="checkbox"
-            defaultChecked={store?.activeJob?.followUp}
-            name="followUp"
-          />
-        </Grid>
-
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            id="outlined-helperText"
-            label="Status"
-            defaultValue={store?.activeJob?.status || ""}
-            name="status"
-          />
-        </Grid>
-        
-        <Grid item xs={6}>
-          <TextField
-            id="outlined-number"
-            label="Stars"
-            type="number"
-            defaultValue={store?.activeJob?.stars || ""}
-            name="stars"
+            type="date"
+            style={{ width: "100%" }}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
-            id="outlined-number"
+            id="outlined-select-number"
             label="Application URL"
             type="text"
             defaultValue={store?.activeJob?.appUrl || ""}
@@ -143,23 +225,57 @@ export default function EditModal({ close }) {
           />
         </Grid>
         <Grid item xs={6}>
-          <InputLabel shrink htmlFor="icon-select">Icon</InputLabel>
-          <Select
-            label="Icon"
-            inputProps={{
-              id: 'icon-select'
-            }}
-            defaultValue='facebook'
-            name='companyIcon'
+          <TextField
+            id="outlined-select"
+            select
+            label="Status"
+            style={{ width: "100%" }}
+            defaultValue={store?.activeJob?.status || ""}
+            onChange={(event) => setSelectedStatus(event.target.value)}
+            name="status"
           >
-            <MenuItem value="facebook">Facebook</MenuItem>
-          </Select>
+            {statuses.map((status) => (
+              <MenuItem value={status} key={status}>
+                {status}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+        <Grid
+          item
+          container
+          alignItems="center"
+          justifyContent="center"
+          xs={12}
+          sx={{ display: "flex", flexDirection: "column" }}
+        >
+          <Grid item xs={6}>
+            <StyledRating
+              name="stars"
+              type="number"
+              size="large"
+              style={{ marginLeft: 20, marginTop: 5 }}
+              defaultValue={Number(store?.activeJob?.stars) || 0}
+              IconContainerComponent={IconContainer}
+              getLabelText={(value) => customIcons[value].label}
+              highlightSelectedOnly
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <FormGroup>
+              <FormControlLabel
+                label="Followed-up?"
+                style={{ marginLeft: 50, marginTop: 5 }}
+                control={<Checkbox defaultChecked />}
+              />
+            </FormGroup>
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <TextField
             id="outlined-multiline-static"
             label="Notes"
-            style={{ width: "100%" }}
+            style={{ width: "100%", marginBottom: 20 }}
             multiline
             rows={6}
             defaultValue={store?.activeJob?.notes || ""}
@@ -167,12 +283,14 @@ export default function EditModal({ close }) {
           />
         </Grid>
       </Grid>
-      <Button variant="outlined" startIcon={<DeleteIcon />}>
-        Delete
-      </Button>
-      <button>
-        Save
-      </button>
+      <Stack direction="row" justifyContent={"space-between"}>
+        <Button variant="outlined" startIcon={<DeleteIcon />} type="button" onClick={handleRemoveJob}>
+          Delete
+        </Button>
+        <Button variant="contained" type="submit">
+          Save
+        </Button>
+      </Stack>
     </form>
   );
 }

@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-
+import { lighten } from '@mui/system';
 import { BrowserRouter } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -12,6 +12,9 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+//Lighter color for yellow
+const lighterColor = lighten('#E0BC00', 0.3);
+
 // DEFAULT COLOR OVERRIDES
 let theme = createTheme({
   palette: {
@@ -19,14 +22,26 @@ let theme = createTheme({
       main: '#250047'
     },
     secondary: {
-      main: "#6200ea",
+      main: "#5500E0",
+    },
+    tertiary: {
+      main: "#89EB00",
+    },
+    quaternary: {
+      main: "#f2f2f2",
+    },
+    yellow: {
+      main: "#E0BC00",
+      light:lighterColor,
     }
   }
 })
 
 // CUSTOM COLORS
-theme = createTheme(theme, {
+theme = {
+  ...theme,
   palette: {
+    ...theme.palette,
     interviewed: theme.palette.augmentColor({
       name: 'interviewed',
       color: {
@@ -50,9 +65,9 @@ theme = createTheme(theme, {
       color: {
         main: '#ff0000'
       }
-    })
+    }),
   }
-})
+}
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ApolloProvider client={client}>

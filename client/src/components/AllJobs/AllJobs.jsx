@@ -1,9 +1,33 @@
 import { Grid, Stack, TextField } from "@mui/material";
 import Sidebar from "../Navigation/Sidebar";
-
+import { useQuery } from '@apollo/client';
+import { GET_JOBS } from '../../../utils/queries.js';
+import auth from "../../../utils/auth.js";
+import jwt_decode from 'jwt-decode';
 import SearchIcon from "@mui/icons-material/Search";
 
-export default function AllJobs() {
+const AllJobs = () =>  {
+  const token = auth.getProfile();
+
+  if (!token) {
+    console.error('No token found');
+  }
+
+  let userDecoded = auth.getProfile();
+  const user_id = userDecoded?.data?._id;
+
+  if (!userDecoded) {
+    console.error('No token found');
+  }
+
+  const { loading, error, data } = useQuery(GET_JOBS, {
+    variables: { user_id: user_id },
+  });
+
+  console.log("All jobs:", data?.jobs)
+
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
 
   return (
     <>
@@ -31,3 +55,5 @@ export default function AllJobs() {
     </>
   );
 }
+
+export default AllJobs;
