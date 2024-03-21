@@ -35,7 +35,8 @@ const jobSchema = new Schema({
       'interviewed',
       'rejected',
       'hired',
-      'applied'
+      'applied',
+      'pending'
     ],
     required: true,
     default: 'applied'
@@ -57,9 +58,11 @@ const jobSchema = new Schema({
     type: Date,
     required: true,
     default: Date.now,
-    // createdAt is a date object, but when you try to access it, it becomes a string
     // get: (timestamp) => dateFormat(timestamp),
-    set: (value) => new Date(value)
+    set: (value) => {
+      const date = new Date(value);
+      return isNaN(date.getTime()) ? undefined : date;
+    }
   },
   stars: {
     type: Number,
@@ -70,7 +73,7 @@ const jobSchema = new Schema({
   },
   note: {
     type: String,
-    minlength: 1,
+    minlength: 0,
     maxlength: 400,
     trim: true
   },

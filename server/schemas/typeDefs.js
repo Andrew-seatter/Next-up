@@ -37,6 +37,7 @@ type Job {
     companyIcon: String
     appUrl: String
     status: String!
+    likes: [Likes]
 }
 
 type Likes {

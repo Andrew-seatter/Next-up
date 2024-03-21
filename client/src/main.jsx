@@ -66,6 +66,12 @@ theme = {
         main: '#ff0000'
       }
     }),
+    applied: theme.palette.augmentColor({
+      name: 'applied',
+      color: {
+        main: '#A1E000'
+      }
+    }),
   }
 }
 
