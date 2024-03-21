@@ -201,7 +201,7 @@ export default function EditModal({ close }) {
           <TextField
             id="outlined-helperText"
             label="Contact Name"
-            defaultValue={store?.activeJob?.contact || ""}
+            defaultValue={store?.activeJob?.contactName || ""}
             name="contactName"
           />
         </Grid>
