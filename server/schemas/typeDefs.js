@@ -14,8 +14,9 @@ input JobInput {
     user_id: ID!
     jobTitle: String!
     companyName: String!
-    contactName: String!
+    contactName: String
     createdAt: String!
+    dateString: String!
     stars: Int!
     followUp: Boolean
     note: String
@@ -29,8 +30,9 @@ type Job {
     user_id: ID!
     jobTitle: String!
     companyName: String!
-    contactName: String!
+    contactName: String
     createdAt: String!
+    dateString: String!
     stars: Int!
     followUp: Boolean
     note: String
