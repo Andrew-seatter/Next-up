@@ -1,5 +1,5 @@
 import { PieChart } from '@mui/x-charts/PieChart';
-import { jobStatusSeed } from '../../../lib/mock-stats.js';
+// import { jobStatusSeed } from '../../../lib/mock-stats.js';
 
 import { useQuery, gql } from '@apollo/client';
 

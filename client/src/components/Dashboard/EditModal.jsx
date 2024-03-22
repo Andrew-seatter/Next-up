@@ -33,6 +33,9 @@ const formatSalary = val => {
   return `$${numeral(val).format('0,0')}`
 }
 
+import moment from 'moment';
+
+
 // Star icons for how excited user feels about the job
 const StyledRating = styled(Rating)(({ theme }) => ({
   "& .MuiRating-iconEmpty .MuiSvgIcon-root": {
@@ -160,6 +163,7 @@ export default function EditModal({ close }) {
           user_id: auth.getProfile()?.data?._id,
         };
         console.log("formData:", formData);
+        formData.dateString = moment().toString();   
         formData.followUp = formData.followUp === "on";
         formData.stars = Number(formData.stars) || 0;
 

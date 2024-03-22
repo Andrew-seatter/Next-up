@@ -65,6 +65,10 @@ const jobSchema = new Schema({
       return isNaN(date.getTime()) ? undefined : date;
     }
   },
+  dateString: {
+    type: String,
+  
+   },
   stars: {
     type: Number,
     required: 'Your job has to have a certain number of stars'
