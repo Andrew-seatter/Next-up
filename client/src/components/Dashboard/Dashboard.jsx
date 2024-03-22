@@ -28,6 +28,7 @@ export const Dashboard = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [store, setStore] = useStore();
   const [open, setOpen] = React.useState(false);
+  const [selectedDate, handleDateChange] = useState(new Date());
   let userDecoded = auth.getProfile();
   const username = userDecoded?.data?.username;
 
@@ -125,16 +126,18 @@ export const Dashboard = () => {
             </Tooltip>
           </Fab>
         </Stack>
+
         <Stack direction='row' gap={4}>
           <div className='welcome-box'>
             <div className='welcome-banner'>
-              <h1>Welcome back, {username}</h1>
+             <h1>Welcome back, {username}</h1>
               <h3>
                 You submitted {jobsThisWeek} jobs this week. {jobMessage}!
               </h3>
             </div>
             <div className='books-img-box'></div>
           </div>
+
           {/* Calendar */}
           {!isMobile && (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -146,6 +149,7 @@ export const Dashboard = () => {
             </LocalizationProvider>
           )}
         </Stack>
+        </Grid>
         <Stack
           className='recent-job-apps'
           sx={{ pt: 2 }}
