@@ -10,19 +10,20 @@ import LineChartCard from "./Charts/LineChart";
 
 export const Stats = () => {
   return (
-    <Grid container spacing={3} style={{ margin: "-17px" }}>
+    <Grid container spacing={3} style={{ margin: "-17px" }} justifyContent="center">
       {/* Aside */}
       <Grid item xs={2} className="sidebar-container">
         <Sidebar />
       </Grid>
-      <Grid item xs={10} id="dash">
+      {/* Charts container */}
+      <Grid item xs={10} id="dash" container justifyContent="center">
         <div className={styles.container}>
           <h1 className={styles.title}>Statistics Overview</h1>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} justifyContent="center">
             {" "}
             {/* Define the Grid container and set spacing between items */}
             {/* Each chart is wrapped in a Grid item */}
-            <Grid item xs={12} sm={6} md={6} lg={6}>
+            <Grid item xs={12}>
               <Box padding={2}>
                 <h2>
                   Applications Over Time
@@ -33,7 +34,7 @@ export const Stats = () => {
                 </p>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6}>
+            <Grid item xs={12}>
               <Box padding={2}>
                 <h2>
                   Application Status
@@ -44,7 +45,7 @@ export const Stats = () => {
                 </p>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6}>
+            <Grid item xs={12}>
               <Box padding={2}>
                 <h2>
                   Interview Success Rate
