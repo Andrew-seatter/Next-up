@@ -11,6 +11,7 @@ import {
   Tooltip,
   FormGroup,
   FormControlLabel,
+  Slider
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
@@ -26,6 +27,11 @@ import { useMutation } from "@apollo/client";
 import { ADD_JOB, ADD_USER, UPDATE_JOB, REMOVE_JOB } from "../../../utils/mutations";
 import auth from "../../../utils/auth";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import numeral from 'numeral'; 
+
+const formatSalary = val => {
+  return `$${numeral(val).format('0,0')}`
+}
 
 // Star icons for how excited user feels about the job
 const StyledRating = styled(Rating)(({ theme }) => ({
@@ -67,7 +73,7 @@ IconContainer.propTypes = {
 };
 
 // Statuses for the job application
-const statuses = ["interviewed", "hired", "pending", "rejected", "applied"];
+const statuses = ["interviewed", "hired", "pending", "rejected", "applied", "follow-up"];
 
 // EditModal component
 export default function EditModal({ close }) {
@@ -156,6 +162,13 @@ export default function EditModal({ close }) {
         console.log("formData:", formData);
         formData.followUp = formData.followUp === "on";
         formData.stars = Number(formData.stars) || 0;
+
+        // formData.salaryRange = Number(formData.salaryRange) || 0;
+        const [low, high] = formData.salaryRange
+        formData.salaryRangeLow = Number(low) || 0;
+        formData.salaryRangeHigh = Number(high) || 0;
+
+        formData.desiredSalary = Number(formData.desiredSalary) || 0;
         if (store?.activeJob) {
           //  we're editing -> call updateJob
           handleUpdateJob(formData);
@@ -224,6 +237,33 @@ export default function EditModal({ close }) {
             type="text"
             defaultValue={store?.activeJob?.appUrl || ""}
             name="appUrl"
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Slider
+            id="outlined-select-number"
+            label="Salary Range"
+            type="number"
+            min={0}
+            max={500000}
+            defaultValue={[
+              Number(store?.activeJob?.salaryRangeLow) || 0,
+              Number(store?.activeJob?.salaryRangeHigh) || 0
+            ]}
+            name="salaryRange"
+            valueLabelDisplay="auto"
+            valueLabelFormat={formatSalary}
+            required
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            id="outlined-select-number"
+            label="Desired Salary"
+            type="number"
+            defaultValue={Number(store?.activeJob?.desiredSalary) || 0}
+            name="desiredSalary"
+            required
           />
         </Grid>
         <Grid item xs={6}>

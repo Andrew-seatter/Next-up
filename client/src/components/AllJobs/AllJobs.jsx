@@ -10,18 +10,19 @@ import Autocomplete from "@mui/material/Autocomplete";
 import React, { useState } from "react";
 
 const statusCategories = [
+  "All",
   "Pending",
   "Interviewed",
   "Applied",
   "Hired",
   "Rejected",
+  "Follow-up",
 ];
 
 // AllJobs component
 export const AllJobs = () => {
-  const [value, setValue] = React.useState(null);
-  const [inputValue, setInputValue] = React.useState("");
-  const [selectedStatus, setSelectedStatus] = React.useState(null);
+  const [filterBy, setFilterBy] = useState("All");
+  const [searchQuery, setSearchQuery] = useState(null);
   const token = auth.getProfile();
 
   if (!token) {
@@ -40,10 +41,21 @@ export const AllJobs = () => {
     variables: { user_id: user_id },
   });
 
-  console.log("All jobs:", data?.jobs);
-
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
+
+  // filter jobs
+  let jobs = [];
+  if (data?.jobs) {
+    jobs = data.jobs;
+    if (filterBy.toLowerCase() !== 'all') {
+      jobs = jobs.filter(j => j.status === filterBy)
+    }
+    if (searchQuery) {
+      jobs = jobs.filter(j => j.jobTitle.toLowerCase().startsWith(searchQuery.toLowerCase()))
+    }
+    console.log(filterBy, searchQuery, jobs)
+  }
 
   return (
     <>
@@ -63,7 +75,12 @@ export const AllJobs = () => {
           >
             <h1>All My Jobs</h1>
             <div style={{ position: "relative" }}>
-              <TextField label="Search by job title" />
+              <TextField 
+                label="Search by job title"
+                onInput={(e) => {
+                  setSearchQuery(e.target.value)
+                }}
+                />
               <SearchIcon
                 style={{
                   position: "absolute",
@@ -76,19 +93,15 @@ export const AllJobs = () => {
             </div>
             <div>
               <Autocomplete
-                value={selectedStatus}
+                // value={selectedStatus}
                 onChange={(event, newValue) => {
-                  if (newValue === null || statusCategories.includes(newValue)) {
-                    setSelectedStatus(newValue);
-                  }
+                  setFilterBy(newValue.toLowerCase())
                 }}
-                inputValue={inputValue}
-                onInputChange={(event, newInputValue) => {
-                  setInputValue(newInputValue);
-                }}
+                // inputValue={inputValue}
                 id="controllable-states-demo"
                 options={statusCategories}
                 sx={{ width: 300 }}
+                disableClearable
                 renderInput={(params) => (
                   <TextField {...params} label="Filter by status" />
                 )}
@@ -97,11 +110,10 @@ export const AllJobs = () => {
           </Stack>
           {/* Jobs */}
           <Grid container id="job-cards" spacing={2} sx={{ pt: 2 }}>
-            {loading && <> {loading ? "loading..." : null}</>}
-            {data?.jobs?.map((job, i) => {
-              const key = job._id || `${job.jobTitle}-${i}`;
-              return <JobCard key={key} job={job} />;
-            })}
+            {loading && "loading..."}
+            {jobs.length ? jobs.map((job) => {
+              return <JobCard key={job._id} job={job} />;
+            }) : 'No jobs found'}
           </Grid>
         </Grid>
       </Grid>
