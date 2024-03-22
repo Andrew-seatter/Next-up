@@ -65,7 +65,7 @@ const jobSchema = new Schema({
     }
   },
   dateString: {
-    type: Date,
+    type: String,
   
    },
   stars: {
