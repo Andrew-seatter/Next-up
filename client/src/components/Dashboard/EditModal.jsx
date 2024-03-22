@@ -155,7 +155,7 @@ export default function EditModal({ close }) {
           user_id: auth.getProfile()?.data?._id,
         };
         console.log("formData:", formData);
-        formData.dateString = moment().format('L');   
+        formData.dateString = moment().toString();   
         formData.followUp = formData.followUp === "on";
         formData.stars = Number(formData.stars) || 0;
         if (store?.activeJob) {
