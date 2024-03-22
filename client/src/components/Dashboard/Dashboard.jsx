@@ -177,7 +177,6 @@ export const Dashboard = () => {
           {error && <>{error.message}</>}
         </Grid>
       </Grid>
-    </Grid>
   );
 };
 
