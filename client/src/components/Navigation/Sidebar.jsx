@@ -1,14 +1,14 @@
-import styles from "./Sidebar.module.css";
-import { NavLink } from "react-router-dom";
-import { Stack} from "@mui/material";
-import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
-import PieChartOutlineIcon from "@mui/icons-material/PieChartOutline";
-import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
-import SvgIcon from "@mui/material/SvgIcon";
-import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import logo from './nextup-lightpurple.webp'
+import React, { useState } from 'react';
+import styles from './Sidebar.module.css';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+import PieChartOutlineIcon from '@mui/icons-material/PieChartOutline';
+import LaptopChromebookIcon from '@mui/icons-material/LaptopChromebook';
+import SvgIcon from '@mui/material/SvgIcon';
+import Button from '@mui/material/Button';
+import logo from './nextup-lightpurple.webp';
+
+import { Stack } from '@mui/material';
 
 // Home icon function
 function HomeIcon(props) {
@@ -88,5 +88,6 @@ export const Sidebar = () => {
     </div>
   );
 };
+
 
 export default Sidebar;

@@ -11,17 +11,22 @@ import Home from "./components/HomePage/Home"
 import { Footer } from "./components/Footer/Footer";
 import EditModal from './components/Dashboard/EditModal.jsx'
 
-import { Modal, Box } from "@mui/material";
+import { Modal, Box, } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { useStore, updateStore } from "./lib/store.js";
 
 import auth from "../utils/auth.js";
 
 function App() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [store, setStore] = useStore()
 
   return (
-    <div>
+    <div style={{ padding: isMobile ? '10px' : '50px '}} >
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -36,7 +41,7 @@ function App() {
       <Modal
         open={store.editModalIsOpen}
       >
-        <Box className="modal-box">
+        <Box className="modal-box" style={{ width: isMobile ? '90%' : '50%' }}>
           <EditModal
             close={()=>{
               updateStore(setStore, 'editModalIsOpen', false)
