@@ -26,6 +26,7 @@ import { useMutation } from "@apollo/client";
 import { ADD_JOB, ADD_USER, UPDATE_JOB, REMOVE_JOB } from "../../../utils/mutations";
 import auth from "../../../utils/auth";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import moment from 'moment';
 
 // Star icons for how excited user feels about the job
 const StyledRating = styled(Rating)(({ theme }) => ({
@@ -154,6 +155,7 @@ export default function EditModal({ close }) {
           user_id: auth.getProfile()?.data?._id,
         };
         console.log("formData:", formData);
+        formData.dateString = moment().format('L');   
         formData.followUp = formData.followUp === "on";
         formData.stars = Number(formData.stars) || 0;
         if (store?.activeJob) {

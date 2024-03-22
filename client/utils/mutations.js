@@ -34,6 +34,7 @@ mutation addJob($input: JobInput!) {
                 note
                 companyIcon
                 createdAt
+                dateString
                 likes {
                     likeAuthor
                     like
@@ -53,6 +54,7 @@ mutation updateJob($jobId: ID!, $input: JobInput!) {
                 note
                 companyIcon
                 createdAt
+                dateString
                 likes {
                     likeAuthor
                     like
