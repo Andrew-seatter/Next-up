@@ -59,7 +59,7 @@ export default function JobCard({ job }) {
                 Company: {job.companyName}
               </Typography>
               <Typography style={{ marginBottom: "5px" }} fontSize="large">
-                Date Applied: {job.createdAt.toLocaleDateString('en-US')}
+                {/* Date Applied: {job.createdAt.toLocaleDateString('en-US')} */}
               </Typography>
             </Stack>
 

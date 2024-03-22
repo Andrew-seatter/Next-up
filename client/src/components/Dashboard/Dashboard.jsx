@@ -112,7 +112,7 @@ export const Dashboard = () => {
           </Fab>
         </Stack>
         <Grid>
-        <Stack container spacing={2} direction="row" gap={4}>
+        <Stack  spacing={2} direction="row" gap={4}>
           <div className="welcome-box">
             <div className="welcome-banner">
               <h1>Welcome back, {username}</h1>
