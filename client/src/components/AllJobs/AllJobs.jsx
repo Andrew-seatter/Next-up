@@ -9,17 +9,23 @@ import JobCard from "../Dashboard/JobCard";
 import Autocomplete from "@mui/material/Autocomplete";
 import React, { useState } from "react";
 
-const statusCategories = ["Pending", "Interviewed", "Applied", "Hired", "Rejected"];
+const statusCategories = [
+  "Pending",
+  "Interviewed",
+  "Applied",
+  "Hired",
+  "Rejected",
+];
 
 // AllJobs component
 export const AllJobs = () => {
   const [value, setValue] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
-  const [selectedStatus, setSelectedStatus] = React.useState("");
+  const [selectedStatus, setSelectedStatus] = React.useState(null);
   const token = auth.getProfile();
 
   if (!token) {
-    console.error('No token found');
+    console.error("No token found");
   }
 
   let user = auth.getProfile();
@@ -72,7 +78,9 @@ export const AllJobs = () => {
               <Autocomplete
                 value={selectedStatus}
                 onChange={(event, newValue) => {
-                  setSelectedStatus(newValue);
+                  if (newValue === null || statusCategories.includes(newValue)) {
+                    setSelectedStatus(newValue);
+                  }
                 }}
                 inputValue={inputValue}
                 onInputChange={(event, newInputValue) => {
@@ -80,23 +88,21 @@ export const AllJobs = () => {
                 }}
                 id="controllable-states-demo"
                 options={statusCategories}
-
                 sx={{ width: 300 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="Filter by status"/>
+                  <TextField {...params} label="Filter by status" />
                 )}
               />
             </div>
           </Stack>
           {/* Jobs */}
           <Grid container id="job-cards" spacing={2} sx={{ pt: 2 }}>
-            {loading && <> {loading ? "loading..." : null}</>}                  
-            {data?.jobs?.filter(job => !selectedStatus || job.status === selectedStatus).map((job, i) => {
+            {loading && <> {loading ? "loading..." : null}</>}
+            {data?.jobs?.map((job, i) => {
               const key = job._id || `${job.jobTitle}-${i}`;
               return <JobCard key={key} job={job} />;
             })}
           </Grid>
-          
         </Grid>
       </Grid>
     </>

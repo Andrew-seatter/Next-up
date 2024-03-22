@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 export const Dashboard = () => {
   const [store, setStore] = useStore();
   const [open, setOpen] = React.useState(false);
+  const [selectedDate, handleDateChange] = useState(new Date());
   let userDecoded = auth.getProfile();
   const username = userDecoded?.data?.username;
 
@@ -79,7 +80,7 @@ export const Dashboard = () => {
   let jobMessage;
   if (jobsThisWeek < 3) {
     jobMessage = "Stay in the fire, you got this";
-  } else if (jobsThisWeek < 10) {
+  } else if (jobsThisWeek < 15) {
     jobMessage = "Look at you go, keep it up";
   } else {
     jobMessage = "Let's throw a few out there";
@@ -110,7 +111,8 @@ export const Dashboard = () => {
             </Tooltip>
           </Fab>
         </Stack>
-        <Stack direction="row" gap={4}>
+        <Grid>
+        <Stack container spacing={2} direction="row" gap={4}>
           <div className="welcome-box">
             <div className="welcome-banner">
               <h1>Welcome back, {username}</h1>
@@ -125,9 +127,11 @@ export const Dashboard = () => {
               className="calendar"
               style={{ margin: 0 }}
               defaultValue={dayjs()}
+              onChange={handleDateChange}
             />
           </LocalizationProvider>
         </Stack>
+        </Grid>
         <Stack
           className="recent-job-apps"
           sx={{ pt: 2 }}
