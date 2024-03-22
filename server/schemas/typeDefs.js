@@ -89,7 +89,28 @@ type Mutation {
     addLike(likeId: ID!, like: Boolean): Job
     removeJob(jobId: ID!, userId: ID!): Job
     removeLike(jobId: ID!, likeId: ID!): Job
-  }
+}
+
+type ApplicationDateCount {
+    date: String
+    count: Int
+}
+
+extend type Query {
+    applicationsOverTime: [ApplicationDateCount]
+}
+
+type JobStatusCount {
+    status: String
+    count: Int
+}
+
+extend type Query {
+    jobStatusCounts: [JobStatusCount]
+}
+
+
+
 `;
 
 module.exports = typeDefs;

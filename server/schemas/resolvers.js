@@ -22,6 +22,42 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+
+    // Get data for applications over time Line Chart
+    applicationsOverTime: async () => {
+      const result = await Jobs.aggregate([
+        {
+          $group: {
+            _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+            count: { $sum: 1 }
+          }
+        },
+        {
+          $project: {
+            _id: 0,
+            date: "$_id",
+            count: 1
+          }
+        },
+        { $sort: { date: 1 } } // Sort by date in ascending order
+      ]);
+
+      return result.map(item => ({
+        date: item.date,
+        count: item.count
+      }));
+    },
+
+    // Get data for job status Pie Chart
+    jobStatusCounts: async () => {
+      const statuses = await Jobs.aggregate([
+        { $group: { _id: "$status", count: { $sum: 1 } } },
+        { $project: { _id: 0, status: "$_id", count: 1 } }
+      ]);
+  
+      return statuses;
+    },
+
   },
 
   Mutation: {
