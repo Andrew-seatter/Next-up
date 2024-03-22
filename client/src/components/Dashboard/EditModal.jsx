@@ -72,6 +72,7 @@ const statuses = ["interviewed", "hired", "pending", "rejected", "applied"];
 // EditModal component
 export default function EditModal({ close }) {
   const [store, setStore] = useStore();
+  const [selectedStatus, setSelectedStatus] = useState(statuses[0]);
   const [
     addJob,
     { data: addJobData, error: addJobError, loading: addJobLoading },
@@ -84,8 +85,6 @@ export default function EditModal({ close }) {
     removeJob,
     { data: removeJobData, error: removeJobError, loading: removeJobLoading },
   ] = useMutation(REMOVE_JOB);
-
-  const [selectedStatus, setSelectedStatus] = useState(statuses[0]);
 
   // Update job function to update the global state when the "save" button is clicked
   const handleUpdateJob = (formData) => {
@@ -144,10 +143,9 @@ export default function EditModal({ close }) {
     location.reload();
   }
 
-
   // Return the form for the EditModal component
   return (
-    <form
+    <form 
       onSubmit={(e) => {
         e.preventDefault();
         // turning form data into an object
@@ -187,6 +185,7 @@ export default function EditModal({ close }) {
             label="Job Title"
             defaultValue={store?.activeJob?.jobTitle || ""}
             name="jobTitle"
+            required
           />
         </Grid>
         <Grid item xs={6}>
@@ -195,6 +194,7 @@ export default function EditModal({ close }) {
             label="Company Name"
             defaultValue={store?.activeJob?.companyName || ""}
             name="companyName"
+            required
           />
         </Grid>
         <Grid item xs={6}>
@@ -203,6 +203,7 @@ export default function EditModal({ close }) {
             label="Contact Name"
             defaultValue={store?.activeJob?.contactName || ""}
             name="contactName"
+            required
           />
         </Grid>
         <Grid item xs={6}>
@@ -213,6 +214,7 @@ export default function EditModal({ close }) {
             name="createdAt"
             type="date"
             style={{ width: "100%" }}
+            required
           />
         </Grid>
         <Grid item xs={6}>
@@ -233,6 +235,7 @@ export default function EditModal({ close }) {
             defaultValue={store?.activeJob?.status || ""}
             onChange={(event) => setSelectedStatus(event.target.value)}
             name="status"
+            required
           >
             {statuses.map((status) => (
               <MenuItem value={status} key={status}>
@@ -265,7 +268,7 @@ export default function EditModal({ close }) {
             <FormGroup>
               <FormControlLabel
                 label="Followed-up?"
-                style={{ marginLeft: 50, marginTop: 5 }}
+                style={{ marginLeft: 30, marginTop: 5 }}
                 control={<Checkbox defaultChecked />}
               />
             </FormGroup>

@@ -8,6 +8,7 @@ import GlobalStyles from "@mui/joy/GlobalStyles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
+import { useTheme } from "@mui/material/styles";
 // import Checkbox from "@mui/joy/Checkbox";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -18,7 +19,7 @@ import Typography from "@mui/joy/Typography";
 import Stack from "@mui/joy/Stack";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
-import logo from './nextup-purple.webp'; 
+import logo from "./nextup-purple.webp";
 
 export const Login = () => {
   const [login, { data, error, loading }] = useMutation(LOGIN);
@@ -26,6 +27,9 @@ export const Login = () => {
     signUp,
     { data: signUpData, error: signUpError, loading: signUpLoading },
   ] = useMutation(ADD_USER);
+  const [isSigningUp, setIsSigningUp] = useState(false);
+  const theme = useTheme();
+
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -60,13 +64,12 @@ export const Login = () => {
     window.location.href = "/dashboard";
   }
 
-  return JoySignInSideTemplate()
+  return JoySignInSideTemplate();
 
   function ColorSchemeToggle(props) {
     const { onClick, ...other } = props;
     const { mode, setMode } = useColorScheme();
     const [mounted, setMounted] = React.useState(false);
-
     React.useEffect(() => setMounted(true), []);
 
     return (
@@ -132,9 +135,9 @@ export const Login = () => {
               }}
             >
               <Box sx={{ gap: 2, display: "flex", alignItems: "center" }}>
-                <IconButton variant="soft" color="primary" size="sm">
-                  {/* <img src={logo} alt="" style={{ position: "absolute", top: 0, left: 0 }}  /> */}
-                </IconButton>
+                {/* <IconButton variant="soft" color="primary" size="sm">
+                  <img src={logo} alt="" style={{ position: "absolute", top: 0, left: 0 }}  />
+                </IconButton> */}
               </Box>
               <ColorSchemeToggle />
             </Box>
@@ -168,16 +171,67 @@ export const Login = () => {
                   </Typography>
                   <Typography level="body-sm">
                     New to nextUp?{" "}
-                    <Link href="/signup" level="title-sm">
+                    <Button
+                      onClick={() => setIsSigningUp(true)}
+                      size="medium"
+                      style={{ backgroundColor: theme.palette.secondary.main}}
+                    >
                       Sign up!
-                    </Link>
+                    </Button>
                   </Typography>
                 </Stack>
               </Stack>
               <Stack gap={4} sx={{ mt: 2 }}>
-                <form
-                  onSubmit={handleLogin}
-                >
+                {isSigningUp ? (
+                  <form onSubmit={handleSignUp}>
+                    <FormControl required>
+                      <FormLabel>Username</FormLabel>
+                      <Input type="username" name="username" />
+                    </FormControl>
+                    <FormControl required>
+                      <FormLabel>Email</FormLabel>
+                      <Input type="email" name="email" />
+                    </FormControl>
+                    <FormControl required>
+                      <FormLabel>Password</FormLabel>
+                      <Input type="password" name="password" />
+                    </FormControl>
+                    <Button type="submit" style={{ backgroundColor: theme.palette.secondary.main}}>Sign Up</Button>
+                  </form>
+                ) : (
+                  <form onSubmit={handleLogin}>
+                    <FormControl required>
+                      <FormLabel>Email</FormLabel>
+                      <Input type="email" name="email" />
+                    </FormControl>
+                    <FormControl required>
+                      <FormLabel>Password</FormLabel>
+                      <Input type="password" name="password" />
+                    </FormControl>
+                    <Stack gap={4} sx={{ mt: 2 }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        {/* <Checkbox
+                        size="sm"
+                        label="Remember me"
+                        name="persistent"
+                      /> */}
+                        {/* <Link level="title-sm" href="#replace-with-a-link">
+                        Forgot your password?
+                      </Link> */}
+                      </Box>
+                      <Button type="submit" fullWidth style={{ backgroundColor: theme.palette.secondary.main}}>
+                        Sign in
+                      </Button>
+                    </Stack>
+                  </form>
+                )}
+                {/* <form onSubmit={handleLogin}>
                   <FormControl required>
                     <FormLabel>Email</FormLabel>
                     <Input type="email" name="email" />
@@ -187,27 +241,27 @@ export const Login = () => {
                     <Input type="password" name="password" />
                   </FormControl>
                   <Stack gap={4} sx={{ mt: 2 }}>
-                    <Box
+                   {/* <Box
                       sx={{
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
                       }}
-                    >
-                      {/* <Checkbox
+                    > */}
+                {/* <Checkbox
                         size="sm"
                         label="Remember me"
                         name="persistent"
                       /> */}
-                      {/* <Link level="title-sm" href="#replace-with-a-link">
+                {/* <Link level="title-sm" href="#replace-with-a-link">
                         Forgot your password?
                       </Link> */}
-                    </Box>
+                {/* </Box>
                     <Button type="submit" fullWidth>
                       Sign in
                     </Button>
                   </Stack>
-                </form>
+                </form> */}
               </Stack>
             </Box>
             <Box component="footer" sx={{ py: 3 }}>
