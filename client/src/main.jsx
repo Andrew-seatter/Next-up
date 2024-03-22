@@ -75,6 +75,27 @@ theme = {
   }
 }
 
+const theme2 = createTheme({
+  palette: {
+    primary: {
+      main: '#ff00ff'
+    },
+    secondary: {
+      main: "#ff00ff",
+    },
+    tertiary: {
+      main: "#ff00ff",
+    },
+    quaternary: {
+      main: "#ff00ff",
+    },
+    yellow: {
+      main: "#ff00ff",
+      light:lighterColor,
+    }
+  }
+})
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ApolloProvider client={client}>
     <ThemeProvider theme={theme}>

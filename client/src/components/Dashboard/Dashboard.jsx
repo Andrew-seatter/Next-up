@@ -137,16 +137,16 @@ export const Dashboard = () => {
             </div>
             <div className='books-img-box'></div>
           </div>
-
-          {/* Calendar */}
+        {/* Calendar */}
           {!isMobile && (
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateCalendar
-                className='calendar'
-                style={{ margin: 0 }}
-                defaultValue={dayjs()}
-              />
-            </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateCalendar
+              className="calendar"
+              style={{ margin: 0 }}
+              value={dayjs()}
+              onChange={handleDateChange}
+            />
+          </LocalizationProvider>
           )}
         </Stack>
         </Grid>
@@ -164,8 +164,10 @@ export const Dashboard = () => {
         <Grid container id='job-cards' spacing={2} sx={{ pt: 2 }}>
           {loading && <> {loading ? 'loading...' : null}</>}
 
+
+        {/* only display 8 on the dashboard */}
           {data?.jobs?.length > 0 &&
-            jobs.map((job, i) => {
+            data?.jobs?.slice(0,8).map((job, i) => {
               const key = `${job.jobTitle}-${i}`;
               return <JobCard key={key} job={job} />;
             })}
@@ -179,5 +181,4 @@ export const Dashboard = () => {
       </Grid>
   );
 };
-
 export default Dashboard;

@@ -23,6 +23,9 @@ input JobInput {
     companyIcon: String
     appUrl: String
     status: String!
+    salaryRangeLow: Int
+    salaryRangeHigh: Int
+    desiredSalary: Int
 }
 
 type Job {
@@ -40,6 +43,9 @@ type Job {
     appUrl: String
     status: String!
     likes: [Likes]
+    salaryRangeLow: Int
+    salaryRangeHigh: Int
+    desiredSalary: Int
 }
 
 type Likes {

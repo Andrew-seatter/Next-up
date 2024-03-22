@@ -59,8 +59,9 @@ export const Login = () => {
     window.location.href = "/dashboard";
   }
 
-  if (!signUpError && signUpData?.signUp?.token) {
-    auth.login(signUpData.signUp.token);
+  
+  if (!signUpError && signUpData?.addUser) {
+    auth.login(signUpData.addUser.token);
     window.location.href = "/dashboard";
   }
 
