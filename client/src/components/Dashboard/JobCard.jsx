@@ -10,10 +10,10 @@ import {
   Tooltip,
 } from "@mui/material";
 import "./JobCard.css";
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 import EditIcon from "@mui/icons-material/Edit";
 import { useStore, updateStore } from "../../lib/store";
-import { lighten } from '@mui/system';
+import { lighten } from "@mui/system";
 
 //jobCard component
 export default function JobCard({ job }) {
@@ -58,13 +58,13 @@ export default function JobCard({ job }) {
               <Typography style={{ marginTop: "15px" }} fontSize="large">
                 Company: {job.companyName}
               </Typography>
-              <Typography style={{ marginBottom: "5px" }} fontSize="large">
-                 Date Applied: {job.dateString} 
+              <Typography fontSize="large">
+                Date Applied: {job.dateString}
               </Typography>
             </Stack>
 
-            <Grid >
-               <Tooltip
+            <Grid>
+              <Tooltip
                 title="Edit"
                 enterDelay={500}
                 leaveDelay={200}
@@ -75,8 +75,17 @@ export default function JobCard({ job }) {
                   alignItems="center"
                   justifyContent="flex-end"
                 >
-                  <Fab aria-label="edit" onClick={editJob} size="small" variant="outlined" sx={{background: 'transparent', borderColor:theme.palette.secondary.main}}>
-                    <EditIcon fontSize="small" color='secondary'/>
+                  <Fab
+                    aria-label="edit"
+                    onClick={editJob}
+                    size="small"
+                    variant="outlined"
+                    sx={{
+                      background: "transparent",
+                      borderColor: theme.palette.secondary.main,
+                    }}
+                  >
+                    <EditIcon fontSize="small" color="secondary" />
                   </Fab>
                 </Stack>
               </Tooltip>

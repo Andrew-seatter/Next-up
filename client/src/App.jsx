@@ -26,7 +26,7 @@ function App() {
   const [store, setStore] = useStore()
 
   return (
-    <div style={{ padding: isMobile ? '10px' : '50px '}} >
+    <div >
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/dashboard" element={<Dashboard />} />
