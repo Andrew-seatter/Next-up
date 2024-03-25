@@ -19,7 +19,6 @@ import Typography from "@mui/joy/Typography";
 import Stack from "@mui/joy/Stack";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
-import logo from "./nextup-purple.webp";
 
 export const Login = () => {
   const [login, { data, error, loading }] = useMutation(LOGIN);
@@ -29,7 +28,6 @@ export const Login = () => {
   ] = useMutation(ADD_USER);
   const [isSigningUp, setIsSigningUp] = useState(false);
   const theme = useTheme();
-
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -59,7 +57,6 @@ export const Login = () => {
     window.location.href = "/dashboard";
   }
 
-  
   if (!signUpError && signUpData?.addUser) {
     auth.login(signUpData.addUser.token);
     window.location.href = "/dashboard";
@@ -104,7 +101,7 @@ export const Login = () => {
         />
         <Box
           sx={(theme) => ({
-            width: { xs: "100%", md: "50vw" },
+            width: { xs: "100%", md: "25vw" },
             transition: "width var(--Transition-duration)",
             transitionDelay: "calc(var(--Transition-duration) + 0.1s)",
             position: "relative",
@@ -175,7 +172,7 @@ export const Login = () => {
                     <Button
                       onClick={() => setIsSigningUp(true)}
                       size="medium"
-                      style={{ backgroundColor: theme.palette.secondary.main}}
+                      style={{ backgroundColor: theme.palette.secondary.main }}
                     >
                       Sign up!
                     </Button>
@@ -197,7 +194,20 @@ export const Login = () => {
                       <FormLabel>Password</FormLabel>
                       <Input type="password" name="password" />
                     </FormControl>
-                    <Button type="submit" style={{ backgroundColor: theme.palette.secondary.main}}>Sign Up</Button>
+                    <Button
+                      type="submit"
+                      style={{ backgroundColor: theme.palette.secondary.main }}
+                    >
+                      Sign Up
+                    </Button>
+                    {/* {theme.palette.mode === "dark" && (
+                      <Button
+                        style={{ backgroundColor: "green", color: "white" }}
+                      >
+                        Click me
+                      </Button>
+                    )} */}
+                  
                   </form>
                 ) : (
                   <form onSubmit={handleLogin}>
@@ -226,43 +236,18 @@ export const Login = () => {
                         Forgot your password?
                       </Link> */}
                       </Box>
-                      <Button type="submit" fullWidth style={{ backgroundColor: theme.palette.secondary.main}}>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        style={{
+                          backgroundColor: theme.palette.secondary.main,
+                        }}
+                      >
                         Sign in
                       </Button>
                     </Stack>
                   </form>
                 )}
-                {/* <form onSubmit={handleLogin}>
-                  <FormControl required>
-                    <FormLabel>Email</FormLabel>
-                    <Input type="email" name="email" />
-                  </FormControl>
-                  <FormControl required>
-                    <FormLabel>Password</FormLabel>
-                    <Input type="password" name="password" />
-                  </FormControl>
-                  <Stack gap={4} sx={{ mt: 2 }}>
-                   {/* <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    > */}
-                {/* <Checkbox
-                        size="sm"
-                        label="Remember me"
-                        name="persistent"
-                      /> */}
-                {/* <Link level="title-sm" href="#replace-with-a-link">
-                        Forgot your password?
-                      </Link> */}
-                {/* </Box>
-                    <Button type="submit" fullWidth>
-                      Sign in
-                    </Button>
-                  </Stack>
-                </form> */}
               </Stack>
             </Box>
             <Box component="footer" sx={{ py: 3 }}>
@@ -279,7 +264,7 @@ export const Login = () => {
             right: 0,
             top: 0,
             bottom: 0,
-            left: { xs: 0, md: "50vw" },
+            left: { xs: 0, md: "25vw" },
             transition:
               "background-image var(--Transition-duration), left var(--Transition-duration) !important",
             transitionDelay: "calc(var(--Transition-duration) + 0.1s)",
@@ -287,14 +272,71 @@ export const Login = () => {
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1527181152855-fc03fc7949c8?auto=format&w=1000&dpr=2)",
+            backgroundImage: "url(/background.jpeg)",
             [theme.getColorSchemeSelector("dark")]: {
-              backgroundImage:
-                "url(https://images.unsplash.com/photo-1572072393749-3ca9c8ea0831?auto=format&w=1000&dpr=2)",
+              backgroundImage: "url(/blackBackground.jpeg)",
             },
           })}
-        />
+        >
+          {theme.palette.mode === "light" && (
+            <>
+              <img
+                src="/purpleLogo.png"
+                alt="Description"
+                style={{
+                  position: "absolute",
+                  top: "45%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "800px",
+                  height: "400px",
+                }}
+              />
+              <p
+                style={{
+                  position: "absolute",
+                  top: "44%",
+                  left: "45%",
+                  transform: "translate(-50%, -50%)",
+                  width: "600px",
+                  height: "300px",
+                  fontSize: "18px",
+                }}
+              >
+                Your Job Search, Mapped and Managed.
+              </p>
+            </>
+          )}
+          {theme.palette.mode === "dark" && (
+            <>
+            <img
+              src="/greenLogo.png"
+              alt="Description"
+              style={{
+                position: "absolute",
+                top: "45%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "800px",
+                height: "400px",
+              }}
+            />
+            <p
+            style={{
+              position: "absolute",
+              top: "44%",
+              left: "45%",
+              transform: "translate(-50%, -50%)",
+              width: "600px",
+              height: "300px",
+              fontSize: "18px",
+            }}
+          >
+            Your Job Search, Mapped and Managed.
+          </p>
+          </>
+          )}
+        </Box>
       </CssVarsProvider>
     );
   }

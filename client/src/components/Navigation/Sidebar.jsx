@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import styles from './Sidebar.module.css';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
-import PieChartOutlineIcon from '@mui/icons-material/PieChartOutline';
-import LaptopChromebookIcon from '@mui/icons-material/LaptopChromebook';
-import SvgIcon from '@mui/material/SvgIcon';
-import Button from '@mui/material/Button';
-import logo from './nextup-lightpurple.webp';
+import React, { useState } from "react";
+import styles from "./Sidebar.module.css";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import PieChartOutlineIcon from "@mui/icons-material/PieChartOutline";
+import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
+import SvgIcon from "@mui/material/SvgIcon";
+import Button from "@mui/material/Button";
+import logo from "./nextup-lightpurple.webp";
+import arrow from "./next-up-arrow.png";
 
-import { Stack } from '@mui/material';
+import { Stack } from "@mui/material";
 
 // Home icon function
 function HomeIcon(props) {
@@ -33,7 +34,19 @@ export const Sidebar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.sidebar}>
-        <img src={logo} alt="" className={styles.nextUpPurple}/>
+        <Stack direction="row" alignItems="center" fontSize="30px" gap={1}>
+          <img
+            src={arrow}
+            alt=""
+            className={styles.nextUpPurple}
+            style={{
+              width: "30px",
+              height: "30px",
+              paddingLeft: "20px",
+            }}
+          />
+          <p> NEXT UP</p>
+        </Stack>
         <ul className={styles.list}>
           <li>
             {location.pathname !== "/dashboard" && (
@@ -44,7 +57,7 @@ export const Sidebar = () => {
                 onClick={() => navigate("/dashboard")}
                 className={styles.link}
               >
-                <HomeIcon fontSize="large"/>
+                <HomeIcon fontSize="large" />
                 Profile
               </Stack>
             )}
@@ -88,6 +101,5 @@ export const Sidebar = () => {
     </div>
   );
 };
-
 
 export default Sidebar;

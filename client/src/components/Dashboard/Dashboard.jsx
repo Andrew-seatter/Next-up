@@ -111,7 +111,9 @@ export const Dashboard = () => {
       {/* Everything Else */}
       <Grid item xs={12} sm={isMobile ? 12 : 10} id="dash">
         <Stack direction="row" alignItems="center" gap={2}>
-          <h2>My Jobs</h2>
+
+          <h2 style={{ paddingLeft: "20px" }}>My Jobs</h2>
+
           <Fab color="secondary" aria-label="add" onClick={addJob} size="small">
             <Tooltip
               disableFocusListener
@@ -130,7 +132,9 @@ export const Dashboard = () => {
           <div className="welcome-box">
             <div className="welcome-banner">
               <h1>Welcome back, {username}</h1>
-              <h3>
+
+              <h3 style={{ textIndent: "20px" }}>
+
                 You submitted {jobsThisWeek} jobs this week. {jobMessage}!
               </h3>
             </div>
@@ -148,26 +152,24 @@ export const Dashboard = () => {
             </LocalizationProvider>
           )}
         </Stack>
-        <Stack
-          className="recent-job-apps"
-          sx={{ pt: 2 }}
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <h4>Recent Job Applications</h4>
-          {/* <Button variant="text">Show more</Button> */}
-          
+      </Grid>
+      <Stack
+        className="recent-job-apps"
+        sx={{ pt: 2 }}
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <h4>Recent Job Applications</h4>
+        {/* <Button variant="text">Show more</Button> */}
+      </Stack>
+      {/* Job Cards */}
+      <Grid container id="job-cards" spacing={2} sx={{ pt: 2 }}>
+        {loading && <> {loading ? "loading..." : null}</>}
 
-         </Stack>
-          {/* Job Cards */}
-       <Grid container id='job-cards' spacing={2} sx={{ pt: 2 }} >
-        {loading && <> {loading ? 'loading...' : null}</>}
-
-
-
+        {/* only display 8 on the dashboard */}
         {data?.jobs?.length > 0 &&
-          data?.jobs?.slice(0,8).map((job, i) => {
+          data?.jobs?.slice(0, 8).map((job, i) => {
             const key = `${job.jobTitle}-${i}`;
             return <JobCard key={key} job={job} />;
           })}
@@ -177,7 +179,6 @@ export const Dashboard = () => {
         )}
 
         {error && <>{error.message}</>}
-      </Grid> 
       </Grid>
     </Grid>
   );
