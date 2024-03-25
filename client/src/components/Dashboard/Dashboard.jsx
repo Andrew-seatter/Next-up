@@ -111,7 +111,9 @@ export const Dashboard = () => {
       {/* Everything Else */}
       <Grid item xs={12} sm={isMobile ? 12 : 10} id="dash">
         <Stack direction="row" alignItems="center" gap={2}>
+
           <h2 style={{ paddingLeft: "20px" }}>My Jobs</h2>
+
           <Fab color="secondary" aria-label="add" onClick={addJob} size="small">
             <Tooltip
               disableFocusListener
@@ -130,7 +132,9 @@ export const Dashboard = () => {
           <div className="welcome-box">
             <div className="welcome-banner">
               <h1>Welcome back, {username}</h1>
+
               <h3 style={{ textIndent: "20px" }}>
+
                 You submitted {jobsThisWeek} jobs this week. {jobMessage}!
               </h3>
             </div>
