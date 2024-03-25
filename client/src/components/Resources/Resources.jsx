@@ -1,5 +1,7 @@
-import { Grid, Typography, Link } from '@mui/material';
+import { Grid, Typography, Link, Card, CardContent } from '@mui/material';
 import Sidebar from "../Navigation/Sidebar";
+import { useMediaQuery, useTheme } from '@mui/material';
+import MobileMenu from '../Navigation/MobileMenu';
 
 const resources = {
     'Resume Help': [
@@ -37,33 +39,44 @@ const resources = {
 };
 
 export const Resources = () => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     return (
-    <Grid container spacing={3} style={{ margin: "-17px" }}>
-            {/* Aside */}
-        <Grid item xs={2} className="sidebar-container">
-            <Sidebar />
-        </Grid>
-        <Grid item xs={10} id="dash" container spacing={2}>
+        <Grid container spacing={3} style={{ margin: "-17px" }}>
+            {isMobile ? (
+                <MobileMenu />
+            ) : (
+                <Grid item xs={2} className='sidebar-container'>
+                    <Sidebar />
+                </Grid>
+            )}
+
+            <Grid item xs={10} id="dash" container spacing={2}>
                 {Object.entries(resources).map(([category, links]) => (
                     <Grid item xs={12} sm={6} key={category}>
-                        <Typography variant="h5" gutterBottom>
-                            {category}
-                        </Typography>
-                        <ul>
-                            {links.map((link, index) => (
-                                <li key={index}>
-                                    <Link href={link.url} target="_blank" rel="noopener noreferrer">
-                                        {link.title}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
+                        <Card>
+                            <CardContent>
+                                <Typography variant="h5" gutterBottom>
+                                    {category}
+                                </Typography>
+                                <ul>
+                                    {links.map((link, index) => (
+                                        <li key={index}>
+                                            <Link href={link.url} target="_blank" rel="noopener noreferrer">
+                                                {link.title}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </CardContent>
+                        </Card>
                     </Grid>
                 ))}
             </Grid>
         </Grid>
     );
 };
+
 
 export default Resources;
 
