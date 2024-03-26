@@ -35,7 +35,7 @@ type Job {
     companyName: String!
     contactName: String
     createdAt: String!
-    dateString: String!
+    dateString: String
     stars: Int!
     followUp: Boolean
     note: String
