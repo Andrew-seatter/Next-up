@@ -4,11 +4,29 @@ import './index.css'
 import { lighten } from '@mui/system';
 import { BrowserRouter } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { setContext } from '@apollo/client/link/context';
 
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+// Create a middleware for the http link that will attach the JWT as an Authorization header
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
 
 const client = new ApolloClient({
-  uri: '/graphql',
+  link: authLink.concat(httpLink), // Chain it with the httpLink
   cache: new InMemoryCache(),
 });
 
