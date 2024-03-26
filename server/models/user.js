@@ -1,7 +1,7 @@
-const { Schema, model } = require('mongoose');
-const bcrypt = require('bcrypt');
-const dateFormat = require('../utils/dateFormat');
-const Job = require('./jobs.js')
+const { Schema, model } = require("mongoose");
+const bcrypt = require("bcrypt");
+const dateFormat = require("../utils/dateFormat");
+const Job = require("./jobs.js");
 
 const userSchema = new Schema({
   username: {
@@ -14,7 +14,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    match: [/.+@.+\..+/, 'Must match an email address!'],
+    match: [/.+@.+\..+/, "Must match an email address!"],
   },
   password: {
     type: String,
@@ -24,48 +24,52 @@ const userSchema = new Schema({
   jobs: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Jobs',
+      ref: "Jobs",
     },
   ],
   goals: [
     {
-        type: Schema.Types.ObjectId,
-        ref: 'Goals',
+      type: Schema.Types.ObjectId,
+      ref: "Goals",
     },
   ],
   friends: [
     {
-        type: Schema.Types.ObjectId,
-        ref: 'Friend',
-    }
+      type: Schema.Types.ObjectId,
+      ref: "Friend",
+    },
   ],
   friendRequests: [
     {
-        type: Schema.Types.ObjectId,
-        ref: 'FriendRequest',
-    }
+      type: Schema.Types.ObjectId,
+      ref: "FriendRequest",
+    },
   ],
   jobsThisWeek: {
     type: Number,
-    get: async function() {
-      const jobs = this.jobs
-      let n = 0
-      let now = new Date()
+    get: async function () {
+      const jobs = this.jobs;
+      let n = 0;
+      let now = new Date();
       for (let i = 0; i < jobs.length; i++) {
-        const j = await Job.findById(jobs[i])
-        let jobDate = new Date(j.createdAt)
-        if ((jobDate - now) < (7*24*60*60*1000)) {
-          n++
+        const j = await Job.findById(jobs[i]);
+        let jobDate = new Date(j.createdAt);
+        if (jobDate - now < 7 * 24 * 60 * 60 * 1000) {
+          n++;
         }
       }
-      return n
-    }
-  }
+      return n;
+    },
+  },
 });
 
 // set up pre-save middleware to create password
-userSchema.pre('save', async function (next) {
-  if (this.isNew || this.isModified('password')) {
+userSchema.pre("save", async function (next) {
+  if (this.salaryRangeLow > this.salaryRangeHigh) {
+    throw new Error("salaryRangeHigh must be higher than salaryRangeLow");
+  }
+
+  if (this.isNew || this.isModified("password")) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
@@ -78,7 +82,6 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-
-const User = model('User', userSchema);
+const User = model("User", userSchema);
 
 module.exports = User;

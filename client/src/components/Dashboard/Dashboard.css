@@ -4,28 +4,36 @@ div .welcome-box {
   align-items: center;
   background-image: url("/welcome-banner.png");
   width: 100%;
-  padding-left: 50px;
   border-radius: 15px;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
   background-size: cover;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 div .welcome-banner {
   border-radius: 15px;
-  width: 55%;
+  width: 65%;
   height: 100%;
-  /* box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.1); */
+  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.1); */
   background-size: cover;
   color: #f2f2f2;
+  padding-left: 35px;
 }
 
+.welcome-back-user {
+  font-size: 2.5vw;
+}
+.jobssubmitted-thisweek {
+  font-size: 1.25vw;
+
+}
 div .books-img-box {
   background-image: url("/books.png");
   width: 30%;
-  height: 80%;
+  height: 70%;
   background-size: contain;
   background-repeat: no-repeat;
+  transform: rotate(20deg);
 }
 
 .calendar {
@@ -35,11 +43,13 @@ div .books-img-box {
 }
 
 .sidebar-container {
-  border-radius: 10px;
-  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
-  padding: 1rem !important;
+  /* border-radius: 10px;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.1); */
+  /* padding-top: 1.05rem !important; */
+  /* padding-left: 2rem !important; */
   background-color: white;
   height: 100vh;
+
 }
 
 #dash {
@@ -47,5 +57,5 @@ div .books-img-box {
 }
 
 .recent-job-apps {
-  margin-bottom: -35px;
+  margin-bottom: -30px;
 }

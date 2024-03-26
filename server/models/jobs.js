@@ -36,7 +36,8 @@ const jobSchema = new Schema({
       'rejected',
       'hired',
       'applied',
-      'pending'
+      'pending',
+      'follow-up'
     ],
     required: true,
     default: 'applied'
@@ -87,7 +88,19 @@ const jobSchema = new Schema({
     maxlength: 500,
     trim: true,
   },
-  
+  salaryRangeLow: {
+    type: Number,
+    min: 0,
+  },
+  salaryRangeHigh: {
+    type: Number,
+    max: 500_000, 
+  },
+  desiredSalary: {
+    type: Number,
+    min: 0,
+    max: 500_000
+  },
   likes: [
     {
       likeAuthor: {

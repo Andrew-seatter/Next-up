@@ -1,20 +1,13 @@
 @import "../rootVars.css";
 
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    margin-left: 20px;
 
-  }
 
 .nextUpPurple {
     width: 100%;
     padding-top: 5px;
     padding-right: 10px;
     background-repeat: no-repeat;
-  }
+}
 
 .welcome {
     text-align: center;
@@ -24,7 +17,7 @@
 
 .list {
     list-style: none;
-    padding: 0;
+    padding-left: 1rem;
     margin: 0;
     color: grey;
     padding-top: 5px;
@@ -33,8 +26,8 @@
 .list li {
     color: grey;
     border-radius: 5px; 
-    margin: 10px; 
-    padding: 10px; 
+    margin: 10px 0px; 
+    padding: 10px 0px; 
     text-align: center; 
     transition: background-color 0.3s, color 0.3s; 
 }
@@ -55,8 +48,3 @@
     color: grey;
 }
 
-.signout-btn {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-}

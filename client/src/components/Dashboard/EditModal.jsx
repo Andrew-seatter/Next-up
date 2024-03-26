@@ -11,6 +11,7 @@ import {
   Tooltip,
   FormGroup,
   FormControlLabel,
+  Slider,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
@@ -23,10 +24,22 @@ import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfi
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useMutation } from "@apollo/client";
-import { ADD_JOB, ADD_USER, UPDATE_JOB, REMOVE_JOB } from "../../../utils/mutations";
+import {
+  ADD_JOB,
+  ADD_USER,
+  UPDATE_JOB,
+  REMOVE_JOB,
+} from "../../../utils/mutations";
 import auth from "../../../utils/auth";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import moment from 'moment';
+import numeral from "numeral";
+
+const formatSalary = (val) => {
+  return `$${numeral(val).format("0,0")}`;
+};
+
+import moment from "moment";
+import dayjs from 'dayjs'
 
 // Star icons for how excited user feels about the job
 const StyledRating = styled(Rating)(({ theme }) => ({
@@ -68,12 +81,20 @@ IconContainer.propTypes = {
 };
 
 // Statuses for the job application
-const statuses = ["interviewed", "hired", "pending", "rejected", "applied"];
+const statuses = [
+  "interviewed",
+  "hired",
+  "pending",
+  "rejected",
+  "applied",
+  "follow-up",
+];
 
 // EditModal component
 export default function EditModal({ close }) {
   const [store, setStore] = useStore();
   const [selectedStatus, setSelectedStatus] = useState(statuses[0]);
+  const [salaryRange, setSalaryRange] = useState(null);
   const [
     addJob,
     { data: addJobData, error: addJobError, loading: addJobLoading },
@@ -87,35 +108,68 @@ export default function EditModal({ close }) {
     { data: removeJobData, error: removeJobError, loading: removeJobLoading },
   ] = useMutation(REMOVE_JOB);
 
+  const formHandler = (e) => {
+    e.preventDefault();
+    // turning form data into an object
+    const formData = {
+      ...Object.fromEntries(new FormData(e.target)),
+      user_id: auth.getProfile()?.data?._id,
+    };
+    console.log("formData:", formData);
+    formData.dateString = moment().toString();
+    formData.followUp = formData.followUp === "on";
+    formData.stars = Number(formData.stars) || 0;
+
+    if (salaryRange) {
+      // If the user did not make any changes to the salaryRange, use the initial value from the database.
+      // Otherwise it will use the [0, 0] from the useState.
+      const [low, high] = salaryRange;
+      formData.salaryRangeLow = low;
+      formData.salaryRangeHigh = high;
+    } else {
+      formData.salaryRangeLow = Number(store?.activeJob?.salaryRangeLow) || 0;
+      formData.salaryRangeHigh = Number(store?.activeJob?.salaryRangeHigh) || 0;
+    }
+    delete formData.salaryRange;
+
+    formData.desiredSalary = Number(formData.desiredSalary) || 0;
+    if (store?.activeJob) {
+      //  we're editing -> call updateJob
+      handleUpdateJob(formData);
+    } else {
+      // we're adding -> call addJob
+      handleAddJob(formData);
+    }
+  };
+
   // Update job function to update the global state when the "save" button is clicked
   const handleUpdateJob = (formData) => {
     // do form validation before this
     console.log(formData);
     updateJob({
       variables: {
-        input: {...formData, companyIcon: "image.svg"},
+        input: { ...formData, companyIcon: "image.svg" },
         jobId: store?.activeJob?._id,
       },
     });
   };
-
   // Add job function to update the global state when the "add" button is clicked
   const handleAddJob = (formData) => {
-    console.log("attempting to add job")
+    console.log("attempting to add job");
     // do form validation before this
     console.log(formData);
-    addJob({ variables: { input: {...formData, companyIcon: "image.svg"} } });
+    addJob({ variables: { input: { ...formData, companyIcon: "image.svg" } } });
   };
 
-  const handleRemoveJob = e => {
-    e.preventDefault()
+  const handleRemoveJob = (e) => {
+    e.preventDefault();
     removeJob({
       variables: {
         jobId: store?.activeJob?._id,
-        userId: auth.getProfile()?.data._id
-      }
-    })
-  }
+        userId: auth.getProfile()?.data._id,
+      },
+    });
+  };
 
   // add job actions
   if (addJobError?.message) {
@@ -137,7 +191,7 @@ export default function EditModal({ close }) {
 
   // delete job actions
   if (removeJobError?.message) {
-    console.log ("Error deleting job!", removeJobError);
+    console.log("Error deleting job!", removeJobError);
     alert(removeJobError?.message);
   }
   if (removeJobData && !removeJobError) {
@@ -146,28 +200,7 @@ export default function EditModal({ close }) {
 
   // Return the form for the EditModal component
   return (
-    <form 
-      onSubmit={(e) => {
-        e.preventDefault();
-        // turning form data into an object
-        const formData = {
-          ...Object.fromEntries(new FormData(e.target)),
-          user_id: auth.getProfile()?.data?._id,
-        };
-        console.log("formData:", formData);
-        const formDate = document.getElementById('outlined-helperText');
-        formData.dateString = formDate.value;   
-        formData.followUp = formData.followUp === "on";
-        formData.stars = Number(formData.stars) || 0;
-        if (store?.activeJob) {
-          //  we're editing -> call updateJob
-          handleUpdateJob(formData);
-        } else {
-          // we're adding -> call addJob
-          handleAddJob(formData);
-        }
-      }}
-    >
+    <form onSubmit={formHandler}>
       <Stack direction="row" justifyContent="space-between">
         <h3>Job Information</h3>
         <Tooltip
@@ -212,11 +245,12 @@ export default function EditModal({ close }) {
         <Grid item xs={6}>
           <TextField
             id="outlined-helperText"
-            label="Date Applied"
-            defaultValue={store?.activeJob?.createdAt || ""}
+            // label="Date Applied"
+
+            defaultValue={dayjs(Number(store?.activeJob?.createdAt)||new Date()).format('YYYY-MM-DD')}
             name="createdAt"
             type="date"
-            style={{ width: "100%" }}
+            // style={{ width: "100%" }}
             required
           />
         </Grid>
@@ -227,6 +261,37 @@ export default function EditModal({ close }) {
             type="text"
             defaultValue={store?.activeJob?.appUrl || ""}
             name="appUrl"
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Slider
+            id="outlined-select-number"
+            label="Salary Range"
+            type="number"
+            min={0}
+            max={500000}
+            defaultValue={[
+              Number(store?.activeJob?.salaryRangeLow) || 0,
+              Number(store?.activeJob?.salaryRangeHigh) || 0,
+            ]}
+            name="salaryRange"
+            valueLabelDisplay="auto"
+            valueLabelFormat={formatSalary}
+            required
+            style={{ width: "80%" }}
+            onChange={(e, val, activeThumb) => {
+              setSalaryRange(val);
+            }}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            id="outlined-select-number"
+            label="Desired Salary"
+            type="number"
+            defaultValue={Number(store?.activeJob?.desiredSalary) || 0}
+            name="desiredSalary"
+            required
           />
         </Grid>
         <Grid item xs={6}>
@@ -271,7 +336,7 @@ export default function EditModal({ close }) {
             <FormGroup>
               <FormControlLabel
                 label="Followed-up?"
-                style={{ marginLeft: 30, marginTop: 5 }}
+                // style={{ marginTop: 5 }}
                 control={<Checkbox defaultChecked />}
               />
             </FormGroup>
@@ -290,7 +355,12 @@ export default function EditModal({ close }) {
         </Grid>
       </Grid>
       <Stack direction="row" justifyContent={"space-between"}>
-        <Button variant="outlined" startIcon={<DeleteIcon />} type="button" onClick={handleRemoveJob}>
+        <Button
+          variant="outlined"
+          startIcon={<DeleteIcon />}
+          type="button"
+          onClick={handleRemoveJob}
+        >
           Delete
         </Button>
         <Button variant="contained" type="submit">
