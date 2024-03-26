@@ -40,7 +40,9 @@ const resources = {
 
 export const Resources = () => {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const MOBILE_BREAKPOINT = 'lg';
+    const isMobile = useMediaQuery(theme.breakpoints.down(MOBILE_BREAKPOINT));
+    
     return (
         <Grid container spacing={3} style={{ margin: "-17px" }}>
             {isMobile ? (
