@@ -14,6 +14,8 @@ export const GET_JOBS = gql`
             contactName
             createdAt
             stars
+            salaryRangeLow
+            salaryRangeHigh
         }
     }
 `
