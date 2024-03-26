@@ -59,3 +59,34 @@ div .books-img-box {
 .recent-job-apps {
   margin-bottom: -30px;
 }
+
+
+/* Adjustments for screens smaller than 768px */
+@media (max-width: 768px) {
+
+  .welcome-back-user {
+    font-size: 5vw; 
+  }
+  
+  .jobssubmitted-thisweek {
+    font-size: 2.5vw;
+  }
+
+  div .welcome-banner {
+    padding-left: 20px; 
+    min-width: 250px;
+  }
+}
+
+  .welcome-back-user {
+    font-size: 5vw;
+  }
+  
+  .jobssubmitted-thisweek {
+    font-size: 2.5vw;
+  }
+
+  div .welcome-banner {
+    padding-left: 20px; 
+
+}

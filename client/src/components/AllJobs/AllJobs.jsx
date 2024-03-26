@@ -77,14 +77,14 @@ export const AllJobs = () => {
         {/* Everything Else */}
         <Grid item xs={10}>
           <Stack
-            direction={{ xs: 'column', sm: 'row' }} // 'column' layout for 'xs' screens and 'row' for 'sm' screens and up
+            direction={{ xs: 'column', lg: 'row' }} // 'column' layout for 'xs' screens and 'row' for 'sm' screens and up
             display='flex'
             justifyContent='space-between'
             alignItems='center'
             gap={2} // Adjust the gap to ensure proper spacing on both layouts
             sx={{ width: '100%', mb: 2 }} // Ensure the Stack takes full width and add margin-bottom for spacing
           > <h2> My jobs</h2>
-          <Stack direction='row' gap={5}>
+          <Stack direction={{ xs: 'column', lg: 'row' }} gap={5}>
             <div style={{ position: 'relative' }}>
               <TextField
               style={{
