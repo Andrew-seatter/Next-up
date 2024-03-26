@@ -39,6 +39,7 @@ const formatSalary = (val) => {
 };
 
 import moment from "moment";
+import dayjs from 'dayjs'
 
 // Star icons for how excited user feels about the job
 const StyledRating = styled(Rating)(({ theme }) => ({
@@ -93,6 +94,7 @@ const statuses = [
 export default function EditModal({ close }) {
   const [store, setStore] = useStore();
   const [selectedStatus, setSelectedStatus] = useState(statuses[0]);
+  const [salaryRange, setSalaryRange] = useState(null);
   const [
     addJob,
     { data: addJobData, error: addJobError, loading: addJobLoading },
@@ -106,6 +108,40 @@ export default function EditModal({ close }) {
     { data: removeJobData, error: removeJobError, loading: removeJobLoading },
   ] = useMutation(REMOVE_JOB);
 
+  const formHandler = (e) => {
+    e.preventDefault();
+    // turning form data into an object
+    const formData = {
+      ...Object.fromEntries(new FormData(e.target)),
+      user_id: auth.getProfile()?.data?._id,
+    };
+    console.log("formData:", formData);
+    formData.dateString = moment().toString();
+    formData.followUp = formData.followUp === "on";
+    formData.stars = Number(formData.stars) || 0;
+
+    if (salaryRange) {
+      // If the user did not make any changes to the salaryRange, use the initial value from the database.
+      // Otherwise it will use the [0, 0] from the useState.
+      const [low, high] = salaryRange;
+      formData.salaryRangeLow = low;
+      formData.salaryRangeHigh = high;
+    } else {
+      formData.salaryRangeLow = Number(store?.activeJob?.salaryRangeLow) || 0;
+      formData.salaryRangeHigh = Number(store?.activeJob?.salaryRangeHigh) || 0;
+    }
+    delete formData.salaryRange;
+
+    formData.desiredSalary = Number(formData.desiredSalary) || 0;
+    if (store?.activeJob) {
+      //  we're editing -> call updateJob
+      handleUpdateJob(formData);
+    } else {
+      // we're adding -> call addJob
+      handleAddJob(formData);
+    }
+  };
+
   // Update job function to update the global state when the "save" button is clicked
   const handleUpdateJob = (formData) => {
     // do form validation before this
@@ -117,7 +153,6 @@ export default function EditModal({ close }) {
       },
     });
   };
-
   // Add job function to update the global state when the "add" button is clicked
   const handleAddJob = (formData) => {
     console.log("attempting to add job");
@@ -165,34 +200,7 @@ export default function EditModal({ close }) {
 
   // Return the form for the EditModal component
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        // turning form data into an object
-        const formData = {
-          ...Object.fromEntries(new FormData(e.target)),
-          user_id: auth.getProfile()?.data?._id,
-        };
-        console.log("formData:", formData);
-        formData.dateString = moment().toString();
-        formData.followUp = formData.followUp === "on";
-        formData.stars = Number(formData.stars) || 0;
-
-        const [low, high] = formData.salaryRange;
-        formData.salaryRangeLow = Number(low) || 0;
-        formData.salaryRangeHigh = Number(high) || 0;
-        delete formData.salaryRange;
-
-        formData.desiredSalary = Number(formData.desiredSalary) || 0;
-        if (store?.activeJob) {
-          //  we're editing -> call updateJob
-          handleUpdateJob(formData);
-        } else {
-          // we're adding -> call addJob
-          handleAddJob(formData);
-        }
-      }}
-    >
+    <form onSubmit={formHandler}>
       <Stack direction="row" justifyContent="space-between">
         <h3>Job Information</h3>
         <Tooltip
@@ -238,8 +246,8 @@ export default function EditModal({ close }) {
           <TextField
             id="outlined-helperText"
             // label="Date Applied"
-            
-            defaultValue={store?.activeJob?.createdAt || ""}
+
+            defaultValue={dayjs(Number(store?.activeJob?.createdAt)||new Date()).format('YYYY-MM-DD')}
             name="createdAt"
             type="date"
             // style={{ width: "100%" }}
@@ -271,6 +279,9 @@ export default function EditModal({ close }) {
             valueLabelFormat={formatSalary}
             required
             style={{ width: "80%" }}
+            onChange={(e, val, activeThumb) => {
+              setSalaryRange(val);
+            }}
           />
         </Grid>
         <Grid item xs={6}>

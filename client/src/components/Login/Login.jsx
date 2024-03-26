@@ -27,7 +27,12 @@ export const Login = () => {
     { data: signUpData, error: signUpError, loading: signUpLoading },
   ] = useMutation(ADD_USER);
   const [isSigningUp, setIsSigningUp] = useState(false);
+  const [loginErrorMessage, setLoginErrorMessage] = useState("");
   const theme = useTheme();
+  const [isDark, setIsDark] = useState(
+    localStorage.getItem("joy-mode") === "dark"
+  );
+  const mainColor = isDark ? "#A1E000" : "#5500E0";
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -57,6 +62,11 @@ export const Login = () => {
     window.location.href = "/dashboard";
   }
 
+  // If something went wrong logging in
+  if (error) {
+    setLoginErrorMessage(error.message);
+  }
+
   if (!signUpError && signUpData?.addUser) {
     auth.login(signUpData.addUser.token);
     window.location.href = "/dashboard";
@@ -77,6 +87,7 @@ export const Login = () => {
         variant="outlined"
         disabled={!mounted}
         onClick={(event) => {
+          setIsDark(mode === "light");
           setMode(mode === "light" ? "dark" : "light");
           onClick?.(event);
         }}
@@ -165,16 +176,21 @@ export const Login = () => {
               <Stack gap={4} sx={{ mb: 2 }}>
                 <Stack gap={1}>
                   <Typography component="h1" level="h3">
-                    Sign in
+                    {isSigningUp ? "Sign up" : "Sign in"}
+                    <br />
+                    {loginErrorMessage}
                   </Typography>
                   <Typography level="body-sm">
-                    New to nextUp?{" "}
+                    {isSigningUp
+                      ? "Already have an account?"
+                      : "New to NextUp?"}
+                    &nbsp;&nbsp;
                     <Button
-                      onClick={() => setIsSigningUp(true)}
+                      onClick={() => setIsSigningUp(!isSigningUp)}
                       size="medium"
-                      style={{ backgroundColor: theme.palette.secondary.main }}
+                      style={{ backgroundColor: mainColor }}
                     >
-                      Sign up!
+                      {isSigningUp ? "Sign in!" : "Sign up!"}
                     </Button>
                   </Typography>
                 </Stack>
@@ -196,7 +212,7 @@ export const Login = () => {
                     </FormControl>
                     <Button
                       type="submit"
-                      style={{ backgroundColor: theme.palette.secondary.main }}
+                      style={{ backgroundColor: mainColor }}
                     >
                       Sign Up
                     </Button>
@@ -207,7 +223,6 @@ export const Login = () => {
                         Click me
                       </Button>
                     )} */}
-                  
                   </form>
                 ) : (
                   <form onSubmit={handleLogin}>
@@ -240,7 +255,7 @@ export const Login = () => {
                         type="submit"
                         fullWidth
                         style={{
-                          backgroundColor: theme.palette.secondary.main,
+                          backgroundColor: mainColor,
                         }}
                       >
                         Sign in
@@ -278,64 +293,31 @@ export const Login = () => {
             },
           })}
         >
-          {theme.palette.mode === "light" && (
-            <>
-              <img
-                src="/purpleLogo.png"
-                alt="Description"
-                style={{
-                  position: "absolute",
-                  top: "45%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: "800px",
-                  height: "400px",
-                }}
-              />
-              <p
-                style={{
-                  position: "absolute",
-                  top: "44%",
-                  left: "45%",
-                  transform: "translate(-50%, -50%)",
-                  width: "600px",
-                  height: "300px",
-                  fontSize: "18px",
-                }}
-              >
-                Your Job Search, Mapped and Managed.
-              </p>
-            </>
-          )}
-          {theme.palette.mode === "dark" && (
-            <>
-            <img
-              src="/greenLogo.png"
-              alt="Description"
-              style={{
-                position: "absolute",
-                top: "45%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: "800px",
-                height: "400px",
-              }}
-            />
-            <p
+          <img
+            src={isDark ? "/greenLogo.png" : "/purpleLogo.png"}
+            alt="Description"
             style={{
               position: "absolute",
-              top: "44%",
-              left: "45%",
+              top: "45%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "800px",
+              height: "400px",
+            }}
+          />
+          <p
+            style={{
+              position: "absolute",
+              top: "41%",
+              left: "43%",
               transform: "translate(-50%, -50%)",
               width: "600px",
               height: "300px",
-              fontSize: "18px",
+              fontSize: "22px",
             }}
           >
             Your Job Search, Mapped and Managed.
           </p>
-          </>
-          )}
         </Box>
       </CssVarsProvider>
     );

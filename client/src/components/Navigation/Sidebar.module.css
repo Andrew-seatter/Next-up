@@ -1,5 +1,7 @@
 @import "../rootVars.css";
 
+
+
 .nextUpPurple {
     width: 100%;
     padding-top: 5px;
@@ -15,7 +17,7 @@
 
 .list {
     list-style: none;
-    padding: 0;
+    padding-left: 1rem;
     margin: 0;
     color: grey;
     padding-top: 5px;
@@ -24,8 +26,8 @@
 .list li {
     color: grey;
     border-radius: 5px; 
-    margin: 10px; 
-    padding: 10px; 
+    margin: 10px 0px; 
+    padding: 10px 0px; 
     text-align: center; 
     transition: background-color 0.3s, color 0.3s; 
 }
@@ -46,8 +48,3 @@
     color: grey;
 }
 
-.signout-btn {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-}

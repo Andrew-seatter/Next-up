@@ -78,14 +78,18 @@ export const AllJobs = () => {
         <Grid item xs={10}>
           <Stack
             direction={{ xs: 'column', sm: 'row' }} // 'column' layout for 'xs' screens and 'row' for 'sm' screens and up
-            justifyContent='flex-start'
+            display='flex'
+            justifyContent='space-between'
             alignItems='center'
             gap={2} // Adjust the gap to ensure proper spacing on both layouts
             sx={{ width: '100%', mb: 2 }} // Ensure the Stack takes full width and add margin-bottom for spacing
-          >
-            <h1>All My Jobs</h1>
+          > <h2> My jobs</h2>
+          <Stack direction='row' gap={5}>
             <div style={{ position: 'relative' }}>
               <TextField
+              style={{
+                // borderRadius: '20px'
+              }}
                 label='Search by job title'
                 onInput={(e) => {
                   setSearchQuery(e.target.value);
@@ -97,7 +101,7 @@ export const AllJobs = () => {
                   right: '15px',
                   top: '50%',
                   translate: '0 -50%',
-                  opacity: 0.5,
+                  opacity: 0.5
                 }}
               />
             </div>
@@ -117,6 +121,7 @@ export const AllJobs = () => {
                 )}
               />
             </div>
+            </Stack>
           </Stack>
           {/* Jobs */}
           <Grid container id='job-cards' spacing={2} sx={{ pt: 2 }}>
