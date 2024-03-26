@@ -117,7 +117,18 @@ extend type Query {
     jobStatusCounts: [JobStatusCount]
 }
 
+extend type Query {
+    salaryData: [Job]
+}
 
+type InterviewsVsApplications {
+    applications: Int
+    interviews: Int
+}
+
+extend type Query {
+    interviewsVsApplications: [InterviewsVsApplications]
+}
 
 `;
 

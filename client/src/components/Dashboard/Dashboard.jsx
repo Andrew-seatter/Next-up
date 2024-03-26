@@ -26,10 +26,6 @@ export const Dashboard = () => {
   const MOBILE_BREAKPOINT = "lg"
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down(MOBILE_BREAKPOINT));
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  // const toggleDrawer = () => {
-  //   setDrawerOpen(!drawerOpen);
-  // };
 
   const [store, setStore] = useStore();
   const [open, setOpen] = React.useState(false);
@@ -123,16 +119,6 @@ export const Dashboard = () => {
 
         <Grid item xs={12} sx={{ padding: "0px" }} id="dash">
           <Stack direction="row" justifyContent='flex-start' alignItems="center" gap={2}>
-            {/* <IconButton
-              color='inherit'
-              aria-label='open drawer'
-              edge='start'
-              onClick={toggleDrawer}
-              sx={{ mr: 2, display: { xs: 'none', sm: 'none', md: 'block' } }}
-            >
-              <OutputIcon />
-              <p>Open Sidebar</p>
-            </IconButton> */}
             <h2 style={{ paddingLeft: "20px" }}>Overview</h2>
             <Fab style={{ backgroundColor: theme.palette.secondary.main }}  aria-label="add" onClick={addJob} size="small">
               <Tooltip
