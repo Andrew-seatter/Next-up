@@ -116,10 +116,15 @@ export default function EditModal({ close }) {
       user_id: auth.getProfile()?.data?._id,
     };
     console.log("formData:", formData);
+
+    //handles date display on the front end, grabs the value off the calendar in the edit modal
     const formDateString = document.getElementById('dateString');
     formData.dateString = formDateString.value;
     formData.followUp = formData.followUp === "on";
     formData.stars = Number(formData.stars) || 0;
+
+    //adds a random icon to 
+    formData.companyIcon = `https://picsum.photos/seed/${Math.random()}/50/50`;
 
     if (salaryRange) {
       // If the user did not make any changes to the salaryRange, use the initial value from the database.
@@ -149,7 +154,7 @@ export default function EditModal({ close }) {
     console.log(formData);
     updateJob({
       variables: {
-        input: { ...formData, companyIcon: "image.svg" },
+        input: { ...formData },
         jobId: store?.activeJob?._id,
       },
     });
