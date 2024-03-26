@@ -116,7 +116,8 @@ export default function EditModal({ close }) {
       user_id: auth.getProfile()?.data?._id,
     };
     console.log("formData:", formData);
-    formData.dateString = moment().toString();
+    const formDateString = document.getElementById('dateString');
+    formData.dateString = formDateString.value;
     formData.followUp = formData.followUp === "on";
     formData.stars = Number(formData.stars) || 0;
 
@@ -244,7 +245,7 @@ export default function EditModal({ close }) {
         </Grid>
         <Grid item xs={6}>
           <TextField
-            id="outlined-helperText"
+            id="dateString"
             // label="Date Applied"
             defaultValue={dayjs(Number(store?.activeJob?.createdAt)||new Date()).format('YYYY-MM-DD')}
             name="createdAt"
