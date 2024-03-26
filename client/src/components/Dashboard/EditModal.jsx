@@ -246,7 +246,6 @@ export default function EditModal({ close }) {
           <TextField
             id="outlined-helperText"
             // label="Date Applied"
-
             defaultValue={dayjs(Number(store?.activeJob?.createdAt)||new Date()).format('YYYY-MM-DD')}
             name="createdAt"
             type="date"
