@@ -164,7 +164,7 @@ export default function EditModal({ close }) {
     console.log("attempting to add job");
     // do form validation before this
     console.log(formData);
-    addJob({ variables: { input: { ...formData, companyIcon: "image.svg" } } });
+    addJob({ variables: { input: { ...formData } } });
   };
 
   const handleRemoveJob = (e) => {
