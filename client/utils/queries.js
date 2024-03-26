@@ -13,6 +13,7 @@ export const GET_JOBS = gql`
             followUp
             contactName
             createdAt
+            dateString
             stars
             salaryRangeLow
             salaryRangeHigh
