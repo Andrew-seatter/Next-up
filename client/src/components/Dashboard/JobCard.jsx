@@ -45,7 +45,7 @@ export default function JobCard({ job }) {
                 color={job.status}
               >
                 <img
-                  src={`https://picsum.photos/seed/${Math.random()}/50/50`}
+                  src={job.companyIcon}
                   style={{ width: "50px" }}
                   alt=""
                 />
