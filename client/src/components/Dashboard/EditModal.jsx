@@ -116,7 +116,8 @@ export default function EditModal({ close }) {
       user_id: auth.getProfile()?.data?._id,
     };
     console.log("formData:", formData);
-    formData.dateString = moment().toString();
+    const formDateString = document.getElementById('outlined-helperText');
+    formData.dateString = formDateString.value;
     formData.followUp = formData.followUp === "on";
     formData.stars = Number(formData.stars) || 0;
 
