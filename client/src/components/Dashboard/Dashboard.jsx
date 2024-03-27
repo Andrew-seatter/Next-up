@@ -15,14 +15,12 @@ import { useQuery } from "@apollo/client";
 import { GET_JOBS, GET_USER } from "../../../utils/queries.js";
 import auth from "../../../utils/auth.js";
 import { Link } from "react-router-dom";
-import useMediaQuery from "@mui/material";
+
 
 
 export const Dashboard = () => {
   const MOBILE_BREAKPOINT = "lg";
   const theme = useTheme();
-
-  const isMobile = useMediaQuery(theme.breakpoints.down(MOBILE_BREAKPOINT));
 
 
   const [store, setStore] = useStore();
