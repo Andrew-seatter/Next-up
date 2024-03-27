@@ -172,7 +172,7 @@ export default function EditModal({ close }) {
     console.log("attempting to add job");
     console.log(formData);
     addJob({ variables: { input: { ...formData, companyIcon: "" } } });
-  };
+
 
   const handleRemoveJob = (e) => {
     e.preventDefault();

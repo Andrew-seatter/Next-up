@@ -20,7 +20,9 @@ import { Link } from "react-router-dom";
 export const Dashboard = () => {
   const MOBILE_BREAKPOINT = "lg";
   const theme = useTheme();
-  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const isMobile = useMediaQuery(theme.breakpoints.down(MOBILE_BREAKPOINT));
+
 
   const [store, setStore] = useStore();
   const [open, setOpen] = React.useState(false);
@@ -128,6 +130,7 @@ export const Dashboard = () => {
               onClick={addJob}
               size="small"
             >
+
               <Tooltip
                 disableFocusListener
                 disableTouchListener

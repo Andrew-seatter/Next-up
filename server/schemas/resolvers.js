@@ -58,7 +58,22 @@ const resolvers = {
       return statuses;
     },
 
+    // Get data for salary distribution Scatter Chart
+    salaryData: async () => {
+      return Jobs.find({}, 'salaryRangeLow salaryRangeHigh');
+    },
+
+    // Get data for applications vs interviews Bar Chart
+    interviewsVsApplications: async () => {
+      const totalApplications = await Jobs.countDocuments();
+      const totalInterviews = await Jobs.countDocuments({ status: 'interviewed' });
+
+      return [{ 
+        applications: totalApplications, 
+        interviews: totalInterviews 
+      }];
   },
+},
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
