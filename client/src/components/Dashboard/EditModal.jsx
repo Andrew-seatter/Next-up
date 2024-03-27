@@ -412,3 +412,4 @@ export default function EditModal({ close }) {
     </form>
   );
 }
+}
