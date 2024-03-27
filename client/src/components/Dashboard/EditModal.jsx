@@ -39,7 +39,7 @@ const formatSalary = (val) => {
 };
 
 import moment from "moment";
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
 
 // Star icons for how excited user feels about the job
 const StyledRating = styled(Rating)(({ theme }) => ({
@@ -95,6 +95,9 @@ export default function EditModal({ close }) {
   const [store, setStore] = useStore();
   const [selectedStatus, setSelectedStatus] = useState(statuses[0]);
   const [salaryRange, setSalaryRange] = useState(null);
+  const [companyIcon, setCompanyIcon] = useState(null);
+  const [stars, setStars] = useState(null);
+  const icon = 'arrowPurple.png'
   const [
     addJob,
     { data: addJobData, error: addJobError, loading: addJobLoading },
@@ -110,6 +113,7 @@ export default function EditModal({ close }) {
 
   const formHandler = (e) => {
     e.preventDefault();
+
     // turning form data into an object
     const formData = {
       ...Object.fromEntries(new FormData(e.target)),
@@ -118,17 +122,19 @@ export default function EditModal({ close }) {
     console.log("formData:", formData);
 
     //handles date display on the front end, grabs the value off the calendar in the edit modal
-    const formDateString = document.getElementById('dateString');
+    const formDateString = document.getElementById("dateString");
+
     formData.dateString = formDateString.value;
     formData.followUp = formData.followUp === "on";
     formData.stars = Number(formData.stars) || 0;
 
-    //adds a random icon to 
-    formData.companyIcon = `https://picsum.photos/seed/${Math.random()}/50/50`;
-
+      // If the user did upload an icon, use the uploaded icon. Otherwise, it will use the initial icon.
+    if (!formData.companyIcon) {
+      formData.companyIcon = icon;
+    } 
+  
     if (salaryRange) {
-      // If the user did not make any changes to the salaryRange, use the initial value from the database.
-      // Otherwise it will use the [0, 0] from the useState.
+      // If the user did not make any changes to the salaryRange, use the initial value from the database.Otherwise it will use the [0, 0] from the useState.
       const [low, high] = salaryRange;
       formData.salaryRangeLow = low;
       formData.salaryRangeHigh = high;
@@ -146,11 +152,13 @@ export default function EditModal({ close }) {
       // we're adding -> call addJob
       handleAddJob(formData);
     }
+    // Update the activeJob in the store
+    updateStore(setStore, "activeJob", formData);
   };
 
   // Update job function to update the global state when the "save" button is clicked
   const handleUpdateJob = (formData) => {
-    // do form validation before this
+
     console.log(formData);
     updateJob({
       variables: {
@@ -162,9 +170,8 @@ export default function EditModal({ close }) {
   // Add job function to update the global state when the "add" button is clicked
   const handleAddJob = (formData) => {
     console.log("attempting to add job");
-    // do form validation before this
     console.log(formData);
-    addJob({ variables: { input: { ...formData, companyIcon: "image.svg" } } });
+    addJob({ variables: { input: { ...formData, companyIcon: "" } } });
   };
 
   const handleRemoveJob = (e) => {
@@ -205,6 +212,11 @@ export default function EditModal({ close }) {
   }
 
   // Return the form for the EditModal component
+  const defaultSalaryRange = [
+    Number(store?.activeJob?.salaryRangeLow) || 0,
+    Number(store?.activeJob?.salaryRangeHigh) || 0,
+  ];
+  const defaultStars = Number(store?.activeJob?.stars) || 0;
   return (
     <form onSubmit={formHandler}>
       <Stack direction="row" justifyContent="space-between">
@@ -234,10 +246,19 @@ export default function EditModal({ close }) {
           <TextField
             id="outlined-helperText"
             label="Company Name"
-            defaultValue={store?.activeJob?.companyName || ""}
+            defaultValue={store?.activeJob?.companyName || ''}
             name="companyName"
             required
           />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            id="outlined-helperText"
+            label="Company Icon"
+            defaultValue={store?.activeJob?.companyIcon || ''}
+            name="companyIcon"
+          />
+      
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -250,12 +271,23 @@ export default function EditModal({ close }) {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            id="outlined-helperText"
+            label="Contact Info"
+            defaultValue={store?.activeJob?.contactInfo || ""}
+            name="contactInfo"
+            required
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
             id="dateString"
-            // label="Date Applied"
-            defaultValue={dayjs(Number(store?.activeJob?.createdAt)||new Date()).format('YYYY-MM-DD')}
+            label="Date Applied"
+            defaultValue={dayjs(
+              Number(store?.activeJob?.createdAt) || new Date()
+            ).format("YYYY-MM-DD")}
             name="createdAt"
             type="date"
-            // style={{ width: "100%" }}
+            style={{ width: "100%" }}
             required
           />
         </Grid>
@@ -266,37 +298,6 @@ export default function EditModal({ close }) {
             type="text"
             defaultValue={store?.activeJob?.appUrl || ""}
             name="appUrl"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Slider
-            id="outlined-select-number"
-            label="Salary Range"
-            type="number"
-            min={0}
-            max={500000}
-            defaultValue={[
-              Number(store?.activeJob?.salaryRangeLow) || 0,
-              Number(store?.activeJob?.salaryRangeHigh) || 0,
-            ]}
-            name="salaryRange"
-            valueLabelDisplay="auto"
-            valueLabelFormat={formatSalary}
-            required
-            style={{ width: "80%" }}
-            onChange={(e, val, activeThumb) => {
-              setSalaryRange(val);
-            }}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            id="outlined-select-number"
-            label="Desired Salary"
-            type="number"
-            defaultValue={Number(store?.activeJob?.desiredSalary) || 0}
-            name="desiredSalary"
-            required
           />
         </Grid>
         <Grid item xs={6}>
@@ -317,35 +318,71 @@ export default function EditModal({ close }) {
             ))}
           </TextField>
         </Grid>
-        <Grid
-          item
-          container
-          alignItems="center"
-          justifyContent="center"
-          xs={12}
-          sx={{ display: "flex", flexDirection: "column" }}
-        >
-          <Grid item xs={6}>
+        <Grid item xs={6}>
+          <TextField
+            id="outlined-select-number"
+            label="Desired Salary"
+            type="number"
+            defaultValue={Number(store?.activeJob?.desiredSalary) || 0}
+            name="desiredSalary"
+            required
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Stack>
+            <div style={{ fontSize: "0.8rem" }}>
+              Salary range:{" "}
+              {(salaryRange || defaultSalaryRange)
+                .map((n) => "$" + n)
+                .join(" - ")}
+            </div>
+            <Slider
+              id="outlined-select-number"
+              label="Salary Range"
+              type="number"
+              min={0}
+              max={500000}
+              defaultValue={defaultSalaryRange}
+              name="salaryRange"
+              valueLabelDisplay="auto"
+              valueLabelFormat={formatSalary}
+              required
+              style={{ width: "100%" }}
+              onChange={(e, val, activeThumb) => {
+                setSalaryRange(val);
+              }}
+            />
+          </Stack>
+        </Grid>
+        <Grid item xs={6}>
+          <Stack alignItems="center">
+            <div style={{ textAlign: "center", fontSize: "0.8rem" }}>
+              How do you feel about the job? <br />
+              {customIcons[stars || defaultStars]?.label}
+            </div>
+
             <StyledRating
               name="stars"
               type="number"
               size="large"
-              style={{ marginLeft: 20, marginTop: 5 }}
-              defaultValue={Number(store?.activeJob?.stars) || 0}
+              defaultValue={defaultStars}
               IconContainerComponent={IconContainer}
               getLabelText={(value) => customIcons[value].label}
+              onChange={(e, val) => {
+                setStars(val);
+              }}
               highlightSelectedOnly
             />
-          </Grid>
-          <Grid item xs={6}>
-            <FormGroup>
-              <FormControlLabel
-                label="Followed-up?"
-                // style={{ marginTop: 5 }}
-                control={<Checkbox defaultChecked />}
-              />
-            </FormGroup>
-          </Grid>
+          </Stack>
+        </Grid>
+        <Grid item xs={6}>
+          <FormGroup>
+            <FormControlLabel
+              label="Followed-up?"
+              // style={{ marginTop: 5 }}
+              control={<Checkbox defaultChecked />}
+            />
+          </FormGroup>
         </Grid>
         <Grid item xs={12}>
           <TextField

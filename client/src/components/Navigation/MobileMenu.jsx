@@ -29,7 +29,7 @@ export const MobileMenu = () => {
     };
 
     return (
-        <>
+        <div id='mobile-menu-wrapper'>
             <IconButton
                 color='inherit'
                 aria-label='open drawer'
@@ -63,7 +63,7 @@ export const MobileMenu = () => {
                     Sign out
                 </MenuItem>
             </Menu>
-        </>
+        </div>
     );
 };
 

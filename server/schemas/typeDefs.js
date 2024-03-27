@@ -15,6 +15,7 @@ input JobInput {
     jobTitle: String!
     companyName: String!
     contactName: String
+    contactInfo: String
     createdAt: String!
     dateString: String!
     stars: Int!
@@ -34,6 +35,7 @@ type Job {
     jobTitle: String!
     companyName: String!
     contactName: String
+    contactInfo: String 
     createdAt: String!
     dateString: String
     stars: Int!

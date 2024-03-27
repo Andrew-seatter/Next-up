@@ -1,29 +1,17 @@
-/*
-jobs needs
-id
-name
-date
-stars
-status
-followUp boolean
-contact
-note
-likes
-*/
 
 //status will be a string designated by update events on front end
-// changed to contactName and companyName to match line up with front end
-const { Schema, model } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
+
+const { Schema, model } = require("mongoose");
+const dateFormat = require("../utils/dateFormat");
 
 const jobSchema = new Schema({
   user_id: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User",
   },
   jobTitle: {
     type: String,
-    required: 'Your job has to have a title!',
+    required: "Your job has to have a title!",
     minlength: 1,
     maxlength: 280,
     trim: true,
@@ -32,19 +20,19 @@ const jobSchema = new Schema({
   status: {
     type: String,
     enum: [
-      'interviewed',
-      'rejected',
-      'hired',
-      'applied',
-      'pending',
-      'follow-up'
+      "interviewed",
+      "rejected",
+      "hired",
+      "applied",
+      "pending",
+      "follow-up",
     ],
     required: true,
-    default: 'applied'
+    default: "applied",
   },
   companyName: {
     type: String,
-    required: 'Your job has to have a company!',
+    required: "Your job has to have a company!",
     minlength: 1,
     maxlength: 45,
     trim: true,
@@ -53,8 +41,14 @@ const jobSchema = new Schema({
     type: String,
     required: false,
     minlength: 1,
-    maxlength: 40
-},
+    maxlength: 40,
+  },
+  contactInfo: {
+    type: String,
+    required: false,
+    minlength: 1,
+    maxlength: 40,
+  },
   createdAt: {
     type: Date,
     required: true,
@@ -63,29 +57,26 @@ const jobSchema = new Schema({
     set: (value) => {
       const date = new Date(value);
       return isNaN(date.getTime()) ? undefined : date;
-    }
+    },
   },
   dateString: {
     type: String,
-  
-   },
+  },
   stars: {
     type: Number,
-    required: 'Your job has to have a certain number of stars'
+    required: "Your job has to have a certain number of stars",
   },
   followUp: {
-    type: Boolean
+    type: Boolean,
   },
   note: {
     type: String,
     minlength: 0,
     maxlength: 400,
-    trim: true
+    trim: true,
   },
   companyIcon: {
     type: String,
-    minlength: 1,
-    maxlength: 500,
     trim: true,
   },
   salaryRangeLow: {
@@ -94,12 +85,12 @@ const jobSchema = new Schema({
   },
   salaryRangeHigh: {
     type: Number,
-    max: 500_000, 
+    max: 500_000,
   },
   desiredSalary: {
     type: Number,
     min: 0,
-    max: 500_000
+    max: 500_000,
   },
   likes: [
     {
@@ -119,8 +110,6 @@ const jobSchema = new Schema({
   ],
 });
 
-const Jobs = model('Jobs', jobSchema);
+const Jobs = model("Jobs", jobSchema);
 
 module.exports = Jobs;
-
-

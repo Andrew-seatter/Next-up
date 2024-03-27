@@ -12,6 +12,7 @@ export const GET_JOBS = gql`
             appUrl
             followUp
             contactName
+            contactInfo
             createdAt
             dateString
             stars

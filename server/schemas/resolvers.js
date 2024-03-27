@@ -1,5 +1,5 @@
 const { User, Goals, Jobs, Friend, FriendRequest } = require("../models");
-const { signToken, AuthenticationError } = require("../utils/auth");
+const { signToken, AuthenticationError, UserNotFoundError, WrongPasswordError, CreateAlreadyTakenError, ShortPasswordError } = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -62,21 +62,41 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
-      const token = signToken(user);
-      return { token, user };
+      try {
+        const user = await User.create({ username, email, password });
+        const token = signToken(user);
+        return { token, user };
+      } catch (error) {
+        console.log("Error creating user")
+        console.log(error)
+        console.log("CODE:", error.code)
+        console.log("MESSAGE:", error.message)
+        if (error.code === 11000) {
+          if (error.keyPattern.username) {
+            throw CreateAlreadyTakenError('username')
+          } else if (error.keyPattern.email) {
+            throw CreateAlreadyTakenError('email')
+          }
+        } else {
+          if (error.message.includes('is shorter than')) {
+            throw ShortPasswordError
+          }
+        } 
+        throw AuthenticationError
+      }
     },
     login: async (parent, { email, password }) => {
+      console.log("ATTEMPTING to log in:", email)
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw AuthenticationError;
+        throw UserNotFoundError;
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw AuthenticationError;
+        throw WrongPasswordError;
       }
 
       const token = signToken(user);

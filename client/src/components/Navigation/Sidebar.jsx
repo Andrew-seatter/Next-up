@@ -12,6 +12,7 @@ import auth from "../../../utils/auth.js";
 import { Stack } from "@mui/material";
 import { useQuery } from "@apollo/client";
 import { GET_USER } from "../../../utils/queries.js";
+import arrow from './nextup-lightpurple.webp';
 
 // Home icon function
 function HomeIcon(props) {
@@ -44,31 +45,32 @@ export const Sidebar = () => {
   });
 
   return (
-    <div>
+    <div style={{ height: '100%' }} id="sidebar-wrapper">
       <Box
-        sx={{
-          width: { md: 250 }, // Full width on extra-small devices, 250px on small devices and up
+        style={{
+          width: '97%', 
           // overflow: "auto",
           maxHeight: "100vh",
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          height: '100vh'
+          height: '100%'
         }}
-
+        id='sidebar-box'
       >
-        <div>
-          <Stack direction="row" alignItems="center" fontSize="30px" gap={1} style={{paddingLeft: '1rem'}}>
-            {/* <img
+        <div id="child-of-box">
+          <Stack direction="row" alignItems="center" justifyContent='space-between' fontSize="30px" gap={1} style={{paddingLeft: '1rem'}}>
+            <img
               src={arrow}
               alt=""
               className={styles.nextUpPurple}
               style={{
-                width: "50px",
-                height: "50px",
+                width: "70%",
+                height: "",
+                alignItems: 'center'
               }}
-            /> */}
-            <p> NEXT UP</p>
+            />
+            {/* <p> NEXT UP</p> */}
           </Stack>
           <ul className={styles.list}>
             {/* Navigation items */}
@@ -115,18 +117,18 @@ export const Sidebar = () => {
         </div>
 
         {/* Sign-out divider */}
-        <div className="signout-divider">
-          <Divider />
+        <div className="signout-divider" style={{borderTop: '1px solid gray', width: '100%'}}>
+          {/* <Divider style={{width: '100%'}}/> */}
           <Box sx={{ display: "flex", gap: 2, alignItems: "center", paddingTop: '20px', paddingBottom: '20px' }}>
             <Avatar
-          variant="outlined"
-          size="sm"         
-         sx={{ bgcolor: '#5500E0' }}>{username[0]}</Avatar>
+              variant="outlined"
+              size="sm"         
+              sx={{ bgcolor: '#5500E0' }}>{username[0]}</Avatar>
 
-            <Box sx={{gap: 2, minWidth: 0, flex: 1}}>
+            <Box sx={{gap: 2, width: '100%'}}>
               <Typography >{username}</Typography>
-            {/* <Typography >{email}</Typography> */}
             </Box>
+
             <IconButton
               onClick={handleSignOut}
               className={styles.signOut}

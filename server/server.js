@@ -53,6 +53,7 @@ const startApolloServer = async () => {
     const users = await User.find({})
     console.log('JOBS:', jobs)
     console.log('USERS usernames:', users.map(u => u.username))
+    // console.log('USERS emails:', users.map(u => u.email))
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
       console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);

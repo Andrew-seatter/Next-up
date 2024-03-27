@@ -1,4 +1,4 @@
-import { Grid, Stack, TextField, useTheme, useMediaQuery } from '@mui/material';
+import { Grid, Stack, TextField, useTheme } from '@mui/material';
 import Sidebar from '../Navigation/Sidebar';
 import MobileMenu from '../Navigation/MobileMenu';
 import { useQuery } from '@apollo/client';
@@ -25,7 +25,7 @@ export const AllJobs = () => {
   const [filterBy, setFilterBy] = useState('All');
   const [searchQuery, setSearchQuery] = useState(null);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const token = auth.getProfile();
 
   if (!token) {
@@ -66,13 +66,26 @@ export const AllJobs = () => {
     <>
       <Grid container spacing={3} style={{ margin: '-17px' }}>
         {/* Display either sidebar or mobile menu */}
-        {isMobile ? (
-          <MobileMenu />
-        ) : (
-          <Grid item xs={2} className='sidebar-container'>
-            <Sidebar />
-          </Grid>
-        )}
+
+        <MobileMenu />
+
+        <Grid 
+          item xs={0} 
+          lg={2} 
+          className='sidebar-container'
+          sx={{
+            xs: {
+              display: 'none'
+            },
+            lg: {
+              display: 'block'
+            }
+          }}
+        >
+
+          <Sidebar />
+        </Grid>
+
 
         {/* Everything Else */}
         <Grid item xs={10}>

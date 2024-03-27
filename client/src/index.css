@@ -1,3 +1,45 @@
+
+/* Merriweather */
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  src: url("/font file/MerriweatherSans/MerriweatherSans-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: italic;
+  src: url("/font file/MerriweatherSans/MerriweatherSans-Italic.ttf");
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: bold;
+  src: url("/font file/MerriweatherSans/MerriweatherSans-Bold.ttf");
+}
+
+
+/* Monsterrat */
+@font-face {
+  font-family: 'Monsterrat';
+  font-style: normal;
+  src: url("/font file/Monsterrat/Monsterrat-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Monsterrat';
+  font-style: italic;
+  src: url("/font file/Monsterrat/Monsterrat-Italic.ttf");
+}
+
+@font-face {
+  font-family: 'Monsterrat';
+  font-style: bold;
+  src: url("/font file/Monsterrat/Monsterrat-SemiBold.ttf");
+}
+
+
+
 * {
   box-sizing: border-box;
 }
@@ -8,6 +50,7 @@ h3,
 h4,
 h5,
 h6 {
+
 }
 
 html,
@@ -17,6 +60,7 @@ body,
 .dashboard {
   min-height: 100vh;
 }
+
 
 body {
   font-family: sans-serif;
@@ -48,4 +92,21 @@ select {
   border-radius: 15px;
   color: black;
   padding: 20px;
+}
+
+
+#mobile-menu-wrapper {
+  display: none;
+}
+
+@media screen and (max-width: 1200px) {
+  #mobile-menu-wrapper {
+    display: initial;
+  }
+  #sidebar-wrapper {
+    display: none;
+  }
+  #calendar {
+    display: none;
+  }
 }
