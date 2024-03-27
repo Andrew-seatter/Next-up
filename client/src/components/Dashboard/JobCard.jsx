@@ -15,6 +15,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useStore, updateStore } from "../../lib/store";
 import { lighten } from "@mui/system";
 
+import { createElement } from "react";
+
 //jobCard component
 export default function JobCard({ job }) {
   const theme = useTheme();
@@ -35,30 +37,33 @@ export default function JobCard({ job }) {
             <Stack
               direction="row"
               alignItems="center"
+              justifyContent="space-between"
               gap={2}
-              style={{ pt: 3 }}
-              sx={{ flexWrap: "wrap" }}
             >
               <Badge
                 classes={{ badge: "custom-badge" }}
                 badgeContent={job.status}
                 color={job.status}
+                style={{
+                  pt: 3,
+                  width: "85px",
+                  height: "60px",
+                  marginTop: "15px",
+                }}
               >
                 <img
-                  src={job.companyIcon}
-                  style={{ width: "50px" }}
+                  src="/arrowPurple.png"
+                  style={{ width: "60px", height: "60px" }}
                   alt=""
                 />
               </Badge>
-              <h3 style={{ margin: 0 }} fontSize="large">
-                {job.jobTitle}
-              </h3>
+              <h3 style={{ margin: 0, fontSize: "24" }}>{job.jobTitle}</h3>
             </Stack>
             <Stack direction="column" justifyContent="flex-end" gap={0.5}>
-              <Typography style={{ marginTop: "15px" }} fontSize="large">
+              <Typography style={{ marginTop: "25px", fontSize: "20px" }}>
                 Company: {job.companyName}
               </Typography>
-              <Typography fontSize="large">
+              <Typography style={{ fontSize: "20px" }}>
                 Date Applied: {job.dateString}
               </Typography>
             </Stack>

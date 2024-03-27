@@ -2,7 +2,7 @@ import styles from "../Login/Login.module.css";
 import auth from "../../../utils/auth.js";
 import { ADD_USER, LOGIN } from "../../../utils/mutations.js";
 import { useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { CssVarsProvider, useColorScheme } from "@mui/joy/styles";
 import GlobalStyles from "@mui/joy/GlobalStyles";
 import CssBaseline from "@mui/joy/CssBaseline";
@@ -20,14 +20,28 @@ import Stack from "@mui/joy/Stack";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 
+/*
+  useRef creates an object that looks like this
+  {
+    current: yourReference    <- if you are storing an element, it goes here
+  }
+*/
+
 export const Login = () => {
+  // error handling
+  const errorDiv = useRef(null)
+  function setError(msg = ""){
+    errorDiv.current.innerText = msg
+  }
+  // const setError = (msg = "") => errorDiv.current.innerText = msg
+  //
+
   const [login, { data, error, loading }] = useMutation(LOGIN);
   const [
     signUp,
     { data: signUpData, error: signUpError, loading: signUpLoading },
   ] = useMutation(ADD_USER);
   const [isSigningUp, setIsSigningUp] = useState(false);
-  const [loginErrorMessage, setLoginErrorMessage] = useState("");
   const theme = useTheme();
   const [isDark, setIsDark] = useState(
     localStorage.getItem("joy-mode") === "dark"
@@ -36,6 +50,7 @@ export const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setError()
     const form = e.target;
     login({
       variables: {
@@ -47,6 +62,7 @@ export const Login = () => {
 
   const handleSignUp = (e) => {
     e.preventDefault();
+    setError()
     const form = e.target;
     signUp({
       variables: {
@@ -57,17 +73,23 @@ export const Login = () => {
     });
   };
 
-  if (!error && data?.login?.token) {
+  if (data?.login?.token) {
     auth.login(data.login.token);
     window.location.href = "/dashboard";
   }
 
   // If something went wrong logging in
   if (error) {
-    setLoginErrorMessage(error.message);
+    // alert(error.message)
+    setError(error.message)
   }
 
-  if (!signUpError && signUpData?.addUser) {
+  if (signUpError) {
+    // alert(signUpError.message)
+    setError(signUpError.message)
+  }
+
+  if (signUpData?.addUser) {
     auth.login(signUpData.addUser.token);
     window.location.href = "/dashboard";
   }
@@ -178,7 +200,6 @@ export const Login = () => {
                   <Typography component="h1" level="h3">
                     {isSigningUp ? "Sign up" : "Sign in"}
                     <br />
-                    {loginErrorMessage}
                   </Typography>
                   <Typography level="body-sm">
                     {isSigningUp
@@ -266,6 +287,7 @@ export const Login = () => {
               </Stack>
             </Box>
             <Box component="footer" sx={{ py: 3 }}>
+              <div style={{color: 'maroon'}} ref={errorDiv}></div>
               <Typography level="body-xs" textAlign="center">
                 © nextUp {new Date().getFullYear()}
               </Typography>
