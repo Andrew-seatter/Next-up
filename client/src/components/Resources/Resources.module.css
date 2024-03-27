@@ -1,0 +1,32 @@
+.resourcesContainer {
+    background: linear-gradient(to right top, #7c0aca, #740bcd, #6a0ed0, #6010d4, #5313d7, #4a28de, #3f36e4, #3342e9, #3358f1, #3b6cf7, #487ffc, #5a91ff);
+};
+
+.resourceCard {
+    margin-top: 30px;
+    margin-right: 30px;
+    padding: 10px;
+}
+
+
+.resourceList {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .resourceList li {
+    margin-bottom: 18px; /* Adjust margin between each link */
+  }
+  
+  .resourceList li:last-child {
+    margin-bottom: 0; /* Remove margin for the last link */
+  }
+  
+  .resourceList li a {
+    color: #333; /* Change link color */
+    text-decoration: none; /* Remove underline */
+  }
+  
+  .resourceList li a:hover {
+    text-decoration: underline; /* Add underline on hover */
+  }
