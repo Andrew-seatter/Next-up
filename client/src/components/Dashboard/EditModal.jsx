@@ -172,7 +172,7 @@ export default function EditModal({ close }) {
     console.log("attempting to add job");
     console.log(formData);
     addJob({ variables: { input: { ...formData, companyIcon: "" } } });
-
+  }
 
   const handleRemoveJob = (e) => {
     e.preventDefault();
@@ -217,6 +217,7 @@ export default function EditModal({ close }) {
     Number(store?.activeJob?.salaryRangeHigh) || 0,
   ];
   const defaultStars = Number(store?.activeJob?.stars) || 0;
+  console.log('help')
   return (
     <form onSubmit={formHandler}>
       <Stack direction="row" justifyContent="space-between">
@@ -410,6 +411,5 @@ export default function EditModal({ close }) {
         </Button>
       </Stack>
     </form>
-  );
-}
+  )
 }

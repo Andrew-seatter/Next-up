@@ -50,7 +50,7 @@ export const Sidebar = () => {
         style={{
           width: '97%', 
           // overflow: "auto",
-          maxHeight: "100vh",
+          minHeight: "100vh",
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',

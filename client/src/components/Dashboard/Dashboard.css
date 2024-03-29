@@ -20,15 +20,16 @@ div .welcome-banner {
   background-size: cover;
   color: #f2f2f2;
   padding-left: 35px;
+  padding-right: 50px;
 }
 
 
 .welcome-back-user {
-  font-size: 2.5vw;
+  font-size: 3rem;
   font-family: 'Monsterrat-SemiBold', bold;
 }
 .jobssubmitted-thisweek {
-  font-size: 1.25vw;
+  font-size: 1.5rem;
 }
 
 .books-img-box {
@@ -70,7 +71,7 @@ div .welcome-banner {
 
 .recent-job-apps {
   margin-bottom: -10px;
-  font-size: 1vw;
+  font-size: 1rem;
 }
 
 .job-messages {
@@ -92,28 +93,19 @@ div .welcome-banner {
 @media (max-width: 768px) {
 
   .welcome-back-user {
-    font-size: 5vw; 
+    font-size: 2rem; 
   }
   
   .jobssubmitted-thisweek {
-    font-size: 2.5vw;
+    font-size: 1rem;
   }
 
   div .welcome-banner {
     padding-left: 20px; 
     min-width: 250px;
   }
+
 }
 
-  .welcome-back-user {
-    font-size: 5vw;
-  }
+
   
-  .jobssubmitted-thisweek {
-    font-size: 2.5vw;
-  }
-
-  div .welcome-banner {
-    padding-left: 20px; 
-
-}

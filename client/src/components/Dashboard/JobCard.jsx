@@ -32,7 +32,7 @@ export default function JobCard({ job }) {
   return (
     <>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <Card className="job-cards">
+        <Card className="job-card">
           <CardContent>
             <Stack
               direction="row"
@@ -61,10 +61,10 @@ export default function JobCard({ job }) {
             </Stack>
             <Stack direction="column" justifyContent="flex-end" gap={0.5}>
               <Typography style={{ marginTop: "25px", fontSize: "20px" }}>
-                Company: {job.companyName}
+                <b>Company</b>: {job.companyName}
               </Typography>
               <Typography style={{ fontSize: "20px" }}>
-                Date Applied: {job.dateString}
+                <b>Date Applied</b>: {job.dateString}
               </Typography>
             </Stack>
 
