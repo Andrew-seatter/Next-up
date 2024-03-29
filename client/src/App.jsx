@@ -20,7 +20,6 @@ function App() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [store, setStore] = useStore();
-console.log('modal open', store.editModalIsOpen)
   return (
     <div className="app-component" style={{ padding: isMobile ? "10px" : "10px " }}>
       <Routes>
@@ -34,7 +33,6 @@ console.log('modal open', store.editModalIsOpen)
 
       <Modal open={store.editModalIsOpen}>
         <Box className="modal-box" style={{ width: isMobile ? "90%" : "50%" }}>
-          <h1>HELLO</h1>
           <EditModal
             close={() => {
               updateStore(setStore, "editModalIsOpen", false);

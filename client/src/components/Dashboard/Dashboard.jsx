@@ -130,7 +130,6 @@ export const Dashboard = () => {
               onClick={addJob}
               size="small"
             >
-
               <Tooltip
                 disableFocusListener
                 disableTouchListener

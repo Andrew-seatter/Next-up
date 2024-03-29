@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styles from "./Sidebar.module.css";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
-import PieChartOutlineIcon from "@mui/icons-material/PieChartOutline";
+import WorkIcon from '@mui/icons-material/Work';
+import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
+import PieChartIcon from '@mui/icons-material/PieChart';
 import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import { Typography, IconButton, Box, Divider } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import SvgIcon from "@mui/material/SvgIcon";
@@ -50,7 +52,7 @@ export const Sidebar = () => {
         style={{
           width: '97%', 
           // overflow: "auto",
-          minHeight: "100vh",
+          // minHeight: "100vh",
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -65,9 +67,8 @@ export const Sidebar = () => {
               alt=""
               className={styles.nextUpPurple}
               style={{
-                width: "70%",
-                height: "",
-                alignItems: 'center'
+                width: "60%",
+                height: "60%",
               }}
             />
             {/* <p> NEXT UP</p> */}
@@ -83,14 +84,14 @@ export const Sidebar = () => {
                   onClick={() => navigate("/dashboard")}
                   className={styles.link}
                 >
-                  <HomeIcon fontSize="medium" />
+                  <SpaceDashboardIcon fontSize="medium"/>
                   Dashboard
                 </Stack>
               )}
             </li>
             <li>
               <Stack direction="row" alignItems="center" gap={3}>
-                <WorkOutlineIcon className="alljobs-icon"></WorkOutlineIcon>
+                <WorkIcon fontSize='medium' className="alljobs-icon"></WorkIcon>
                 <NavLink to="/allJobs" className={styles.link}>
                   All Jobs
                 </NavLink>
@@ -98,7 +99,7 @@ export const Sidebar = () => {
             </li>
             <li>
               <Stack direction="row" alignItems="center" gap={3}>
-                <PieChartOutlineIcon></PieChartOutlineIcon>
+                <PieChartIcon fontSize='medium'></PieChartIcon>
                 <NavLink to="/stats" className={styles.link}>
                   My Stats
                 </NavLink>
@@ -106,7 +107,7 @@ export const Sidebar = () => {
             </li>
             <li>
               <Stack direction="row" alignItems="center" gap={3}>
-                <LaptopChromebookIcon></LaptopChromebookIcon>
+                <LibraryBooksIcon fontSize='medium'></LibraryBooksIcon>
                 <NavLink to="/resources" className={styles.link}>
                   {" "}
                   Resources

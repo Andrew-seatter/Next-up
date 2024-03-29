@@ -1,6 +1,4 @@
-/* Add root variables here. 
-
-To use, add: @import "../rootVars.css"; to the top of any css component*/
+/* Add root variables here. */
 
 :root {
     --color-primary: #ab2bda;

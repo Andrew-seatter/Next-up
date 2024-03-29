@@ -1,0 +1,17 @@
+.all-jobs-pg {
+  font-size: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .filter-by-category {
+    width: 150px;
+  }
+}
