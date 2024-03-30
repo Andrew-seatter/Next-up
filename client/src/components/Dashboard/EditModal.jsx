@@ -97,7 +97,7 @@ export default function EditModal({ close }) {
   const [salaryRange, setSalaryRange] = useState(null);
   const [companyIcon, setCompanyIcon] = useState(null);
   const [stars, setStars] = useState(null);
-  const icon = 'arrowPurple.png'
+  const icon = "arrowPurple.png";
   const [
     addJob,
     { data: addJobData, error: addJobError, loading: addJobLoading },
@@ -128,11 +128,11 @@ export default function EditModal({ close }) {
     formData.followUp = formData.followUp === "on";
     formData.stars = Number(formData.stars) || 0;
 
-      // If the user did upload an icon, use the uploaded icon. Otherwise, it will use the initial icon.
+    // If the user did upload an icon, use the uploaded icon. Otherwise, it will use the initial icon.
     if (!formData.companyIcon) {
       formData.companyIcon = icon;
-    } 
-  
+    }
+
     if (salaryRange) {
       // If the user did not make any changes to the salaryRange, use the initial value from the database.Otherwise it will use the [0, 0] from the useState.
       const [low, high] = salaryRange;
@@ -158,7 +158,6 @@ export default function EditModal({ close }) {
 
   // Update job function to update the global state when the "save" button is clicked
   const handleUpdateJob = (formData) => {
-
     console.log(formData);
     updateJob({
       variables: {
@@ -172,7 +171,7 @@ export default function EditModal({ close }) {
     console.log("attempting to add job");
     console.log(formData);
     addJob({ variables: { input: { ...formData, companyIcon: "" } } });
-
+  };
 
   const handleRemoveJob = (e) => {
     e.preventDefault();
@@ -246,7 +245,7 @@ export default function EditModal({ close }) {
           <TextField
             id="outlined-helperText"
             label="Company Name"
-            defaultValue={store?.activeJob?.companyName || ''}
+            defaultValue={store?.activeJob?.companyName || ""}
             name="companyName"
             required
           />
@@ -255,10 +254,9 @@ export default function EditModal({ close }) {
           <TextField
             id="outlined-helperText"
             label="Company Icon"
-            defaultValue={store?.activeJob?.companyIcon || ''}
+            defaultValue={store?.activeJob?.companyIcon || ""}
             name="companyIcon"
           />
-      
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -411,5 +409,4 @@ export default function EditModal({ close }) {
       </Stack>
     </form>
   );
-}
 }

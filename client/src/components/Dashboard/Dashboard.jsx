@@ -69,6 +69,7 @@ export const Dashboard = () => {
 
   // addjob function to update the global state when the "add" button is clicked
   const addJob = () => {
+    console.log("addjob working?")
     updateStore(setStore, "activeJob", null);
     updateStore(setStore, "editModalIsOpen", true);
   };
@@ -129,7 +130,6 @@ export const Dashboard = () => {
               onClick={addJob}
               size="small"
             >
-
               <Tooltip
                 disableFocusListener
                 disableTouchListener

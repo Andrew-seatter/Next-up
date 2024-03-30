@@ -1,3 +1,32 @@
 .custom-badge {
     width: 85px;
 }
+.job-card span {
+    font-family: 'Roboto';
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.job-card b {
+    font-family: 'Roboto';
+    font-weight: normal;
+    font-size: 18px;
+}
+
+.job-card h3 {
+    font-family: 'Roboto' ;
+    font-style: normal;
+    font-size: 20px;
+}
+
+.job-card .job-desc-card {
+    font-family: 'Libre Baskerville' ;
+    font-style: normal;
+    font-size: 18px;
+}
+
+@media (max-width: 1600px) {
+    .job-card .stack-container {
+      flex-direction: column;
+    }
+  }

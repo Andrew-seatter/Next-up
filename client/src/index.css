@@ -21,37 +21,32 @@
 
 /* Monsterrat */
 @font-face {
-  font-family: 'Monsterrat';
+  font-family: 'Montserrat';
   font-style: normal;
-  src: url("/font file/Monsterrat/Monsterrat-Regular.ttf");
+  src: url("/font file/Montserrat/Montserrat-Regular.ttf");
 }
 
 @font-face {
-  font-family: 'Monsterrat';
+  font-family: 'Montserrat';
+  font-style: medium;
+  src: url("/font file/Montserrat/Montserrat-Medium.ttf");
+}
+@font-face {
+  font-family: 'Montserrat';
   font-style: italic;
-  src: url("/font file/Monsterrat/Monsterrat-Italic.ttf");
+  src: url("/font file/Montserrat/Montserrat-Italic.ttf");
 }
 
 @font-face {
-  font-family: 'Monsterrat';
+  font-family: 'Montserrat';
   font-style: bold;
-  src: url("/font file/Monsterrat/Monsterrat-SemiBold.ttf");
+  src: url("/font file/Montserrat/Montserrat-SemiBold.ttf");
 }
-
-
 
 * {
   box-sizing: border-box;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-
-}
 
 html,
 body,
@@ -65,7 +60,6 @@ body,
 body {
   font-family: sans-serif;
   background-color: #f2f2f2;
-  /* padding: 1rem; */
   margin: 0px;
 }
 
@@ -73,13 +67,6 @@ body {
   body {
     padding: 0.33rem;
   }
-}
-
-/* dont inherit font from parent */
-button,
-input,
-textarea,
-select {
 }
 
 .modal-box {

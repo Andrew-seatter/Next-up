@@ -1,5 +1,4 @@
 import { atom, useAtom } from 'jotai'
-// https://jotai.org/docs/core/store
 
 const store = atom({
     activeJob: null,

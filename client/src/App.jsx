@@ -20,7 +20,6 @@ function App() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [store, setStore] = useStore();
-
   return (
     <div className="app-component" style={{ padding: isMobile ? "10px" : "10px " }}>
       <Routes>
